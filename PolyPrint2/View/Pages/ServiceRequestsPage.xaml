@@ -1,0 +1,61 @@
+<!--#region Страница сервисных заявок-->
+<Page x:Class="PolyPrint2.View.Pages.ServiceRequestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Сервисные заявки">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Заголовок-->
+        <TextBlock Grid.Row="0"
+                   Text="Сервисные заявки"
+                   Style="{StaticResource HeaderText}"/>
+        <!--#endregion-->
+
+        <!--#region Панель управления-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchBox"
+                     Grid.Column="0"
+                     Style="{StaticResource InputTextBox}"/>
+
+            <Button x:Name="AddButton"
+                    Grid.Column="2"
+                    Content="Добавить заявку"
+                    Style="{StaticResource SuccessButton}"
+                    Width="160"/>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Таблица заявок-->
+        <DataGrid x:Name="RequestsGrid"
+                  Grid.Row="4"
+                  Style="{StaticResource MainDataGrid}"
+                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                  CellStyle="{StaticResource DataGridCell}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_Request}" Width="60"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding ClientName}" Width="200"/>
+                <DataGridTextColumn Header="Оборудование" Binding="{Binding EquipmentName}" Width="200"/>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding Created_Date, StringFormat=dd.MM.yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Проблема" Binding="{Binding Problem_Description}" Width="*"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
+                <DataGridTextColumn Header="Мастер" Binding="{Binding MasterName}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--#endregion-->
+    </Grid>
+</Page>
+<!--#endregion-->
