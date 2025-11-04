@@ -1,0 +1,88 @@
+<!--#region Окно редактирования пользователя-->
+<Window x:Class="PolyPrint2.View.Windows.EditUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Пользователь"
+        WindowStartupLocation="CenterScreen"
+        Width="450"
+        Height="350"
+        ResizeMode="NoResize"
+        Background="{StaticResource WindowBrush}">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Заголовок-->
+        <TextBlock x:Name="TitleText"
+                   Grid.Row="0"
+                   Text="Добавление пользователя"
+                   Style="{StaticResource SubHeaderText}"/>
+        <!--#endregion-->
+
+        <!--#region Логин-->
+        <TextBlock Grid.Row="2"
+                   Text="Логин"
+                   Style="{StaticResource LabelText}"/>
+        <TextBox x:Name="LoginBox"
+                 Grid.Row="4"
+                 Style="{StaticResource InputTextBox}"/>
+        <!--#endregion-->
+
+        <!--#region Пароль-->
+        <TextBlock Grid.Row="6"
+                   Text="Пароль"
+                   Style="{StaticResource LabelText}"/>
+        <PasswordBox x:Name="PasswordBox"
+                     Grid.Row="8"
+                     Style="{StaticResource InputPasswordBox}"/>
+        <!--#endregion-->
+
+        <!--#region Роль-->
+        <TextBlock Grid.Row="10"
+                   Text="Роль"
+                   Style="{StaticResource LabelText}"/>
+        <ComboBox x:Name="RoleBox"
+                  Grid.Row="12"
+                  Style="{StaticResource InputComboBox}"/>
+        <!--#endregion-->
+
+        <!--#region Кнопки-->
+        <Grid Grid.Row="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="SaveButton"
+                    Grid.Column="0"
+                    Content="Сохранить"
+                    Style="{StaticResource SuccessButton}"
+                    Height="40"/>
+
+            <Button x:Name="CancelButton"
+                    Grid.Column="2"
+                    Content="Отмена"
+                    Style="{StaticResource SecondaryButton}"
+                    Height="40"/>
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</Window>
+<!--#endregion-->
