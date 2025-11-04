@@ -69,6 +69,11 @@
                         Style="{StaticResource SecondaryButton}"
                         Margin="15,0,15,12"/>
 
+                <Button x:Name="StatisticsButton"
+                        Content="Статистика"
+                        Style="{StaticResource SecondaryButton}"
+                        Margin="15,0,15,12"/>
+
                 <Button x:Name="UsersButton"
                         Content="Пользователи"
                         Style="{StaticResource SecondaryButton}"

@@ -1,0 +1,179 @@
+<!--#region Страница статистики-->
+<Page x:Class="PolyPrint2.View.Pages.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Статистика">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--#region Заголовок-->
+            <TextBlock Grid.Row="0"
+                       Text="Статистика и отчёты"
+                       Style="{StaticResource HeaderText}"/>
+            <!--#endregion-->
+
+            <!--#region Сводка-->
+            <Border Grid.Row="2"
+                    Background="{StaticResource SecondaryBrush}"
+                    CornerRadius="8"
+                    Padding="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Всего клиентов"
+                                   Style="{StaticResource NormalText}"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock x:Name="TotalClientsText"
+                                   Text="0"
+                                   Style="{StaticResource HeaderText}"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Всего заявок"
+                                   Style="{StaticResource NormalText}"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock x:Name="TotalRequestsText"
+                                   Text="0"
+                                   Style="{StaticResource HeaderText}"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="Всего оборудования"
+                                   Style="{StaticResource NormalText}"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock x:Name="TotalEquipmentText"
+                                   Text="0"
+                                   Style="{StaticResource HeaderText}"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="6">
+                        <TextBlock Text="Общий доход"
+                                   Style="{StaticResource NormalText}"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock x:Name="TotalRevenueText"
+                                   Text="0 руб."
+                                   Style="{StaticResource HeaderText}"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <!--#endregion-->
+
+            <!--#region Заявки по статусам-->
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Заявки по статусам"
+                           Style="{StaticResource SubHeaderText}"/>
+
+                <DataGrid x:Name="StatusStatsGrid"
+                          Grid.Row="2"
+                          Style="{StaticResource MainDataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                          CellStyle="{StaticResource DataGridCell}"
+                          Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Оборудование по состоянию-->
+            <Grid Grid.Row="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Оборудование по состоянию"
+                           Style="{StaticResource SubHeaderText}"/>
+
+                <DataGrid x:Name="EquipmentStatsGrid"
+                          Grid.Row="2"
+                          Style="{StaticResource MainDataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                          CellStyle="{StaticResource DataGridCell}"
+                          Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Состояние" Binding="{Binding Condition}" Width="*"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Нагрузка мастеров-->
+            <Grid Grid.Row="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Нагрузка мастеров"
+                           Style="{StaticResource SubHeaderText}"/>
+
+                <DataGrid x:Name="MasterStatsGrid"
+                          Grid.Row="2"
+                          Style="{StaticResource MainDataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                          CellStyle="{StaticResource DataGridCell}"
+                          Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Мастер" Binding="{Binding MasterName}" Width="*"/>
+                        <DataGridTextColumn Header="Активных заявок" Binding="{Binding ActiveCount}" Width="150"/>
+                        <DataGridTextColumn Header="Всего заявок" Binding="{Binding TotalCount}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <!--#endregion-->
+        </Grid>
+    </ScrollViewer>
+</Page>
+<!--#endregion-->
