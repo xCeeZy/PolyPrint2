@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PolyPrintModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="int" Nullable="false" />
+          <Property Name="Organization_Name" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Contact_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="ID_Equipment" />
+          </Key>
+          <Property Name="ID_Equipment" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Serial_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Client" Type="int" />
+          <Property Name="Condition" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="ID_Item" />
+          </Key>
+          <Property Name="ID_Item" Type="int" Nullable="false" />
+          <Property Name="ID_Order" Type="int" Nullable="false" />
+          <Property Name="ID_Equipment" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="int" Nullable="false" />
+          <Property Name="ID_Client" Type="int" Nullable="false" />
+          <Property Name="Order_Date" Type="date" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="ID_Part" />
+          </Key>
+          <Property Name="ID_Part" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service_Requests">
+          <Key>
+            <PropertyRef Name="ID_Request" />
+          </Key>
+          <Property Name="ID_Request" Type="int" Nullable="false" />
+          <Property Name="ID_Client" Type="int" Nullable="false" />
+          <Property Name="ID_Equipment" Type="int" />
+          <Property Name="Created_Date" Type="date" Nullable="false" />
+          <Property Name="Problem_Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_Master" Type="int" />
+        </EntityType>
+        <EntityType Name="Used_Parts">
+          <Key>
+            <PropertyRef Name="ID_UsedPart" />
+          </Key>
+          <Property Name="ID_UsedPart" Type="int" Nullable="false" />
+          <Property Name="ID_Work" Type="int" Nullable="false" />
+          <Property Name="ID_Part" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="ID_Work" />
+          </Key>
+          <Property Name="ID_Work" Type="int" Nullable="false" />
+          <Property Name="ID_Request" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Work_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Equipment__ID_Cl__3B75D760">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__ID_Eq__4222D4EF">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID_Equipment" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="ID_Equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__ID_Or__412EB0B6">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID_Order" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="ID_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ID_Clien__3E52440B">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Cl__44FF419A">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Eq__45F365D3">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="0..1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID_Equipment" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Ma__46E78A0C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Used_Part__ID_Pa__4F7CD00D">
+          <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+          <End Role="Used_Parts" Type="Self.Used_Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parts">
+              <PropertyRef Name="ID_Part" />
+            </Principal>
+            <Dependent Role="Used_Parts">
+              <PropertyRef Name="ID_Part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Used_Part__ID_Wo__4E88ABD4">
+          <End Role="Works" Type="Self.Works" Multiplicity="1" />
+          <End Role="Used_Parts" Type="Self.Used_Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Works">
+              <PropertyRef Name="ID_Work" />
+            </Principal>
+            <Dependent Role="Used_Parts">
+              <PropertyRef Name="ID_Work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Works__ID_Reques__49C3F6B7">
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service_Requests">
+              <PropertyRef Name="ID_Request" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="ID_Request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PolyPrintModelContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service_Requests" EntityType="Self.Service_Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Used_Parts" EntityType="Self.Used_Parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Works" EntityType="Self.Works" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Equipment__ID_Cl__3B75D760" Association="Self.FK__Equipment__ID_Cl__3B75D760">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__ID_Eq__4222D4EF" Association="Self.FK__Order_Ite__ID_Eq__4222D4EF">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__ID_Or__412EB0B6" Association="Self.FK__Order_Ite__ID_Or__412EB0B6">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ID_Clien__3E52440B" Association="Self.FK__Orders__ID_Clien__3E52440B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Cl__44FF419A" Association="Self.FK__Service_R__ID_Cl__44FF419A">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Eq__45F365D3" Association="Self.FK__Service_R__ID_Eq__45F365D3">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Ma__46E78A0C" Association="Self.FK__Service_R__ID_Ma__46E78A0C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Used_Part__ID_Pa__4F7CD00D" Association="Self.FK__Used_Part__ID_Pa__4F7CD00D">
+            <End Role="Parts" EntitySet="Parts" />
+            <End Role="Used_Parts" EntitySet="Used_Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Used_Part__ID_Wo__4E88ABD4" Association="Self.FK__Used_Part__ID_Wo__4E88ABD4">
+            <End Role="Works" EntitySet="Works" />
+            <End Role="Used_Parts" EntitySet="Used_Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Works__ID_Reques__49C3F6B7" Association="Self.FK__Works__ID_Reques__49C3F6B7">
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PolyPrintModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="Organization_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK__Equipment__ID_Cl__3B75D760" FromRole="Clients" ToRole="Equipment" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ID_Clien__3E52440B" FromRole="Clients" ToRole="Orders" />
+          <NavigationProperty Name="Service_Requests" Relationship="Self.FK__Service_R__ID_Cl__44FF419A" FromRole="Clients" ToRole="Service_Requests" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="ID_Equipment" />
+          </Key>
+          <Property Name="ID_Equipment" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Serial_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Client" Type="Int32" />
+          <Property Name="Condition" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Equipment__ID_Cl__3B75D760" FromRole="Equipment" ToRole="Clients" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__ID_Eq__4222D4EF" FromRole="Equipment" ToRole="Order_Items" />
+          <NavigationProperty Name="Service_Requests" Relationship="Self.FK__Service_R__ID_Eq__45F365D3" FromRole="Equipment" ToRole="Service_Requests" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="ID_Item" />
+          </Key>
+          <Property Name="ID_Item" Type="Int32" Nullable="false" />
+          <Property Name="ID_Order" Type="Int32" Nullable="false" />
+          <Property Name="ID_Equipment" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK__Order_Ite__ID_Eq__4222D4EF" FromRole="Order_Items" ToRole="Equipment" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order_Ite__ID_Or__412EB0B6" FromRole="Order_Items" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="Int32" Nullable="false" />
+          <Property Name="ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Orders__ID_Clien__3E52440B" FromRole="Orders" ToRole="Clients" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__ID_Or__412EB0B6" FromRole="Orders" ToRole="Order_Items" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="ID_Part" />
+          </Key>
+          <Property Name="ID_Part" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Used_Parts" Relationship="Self.FK__Used_Part__ID_Pa__4F7CD00D" FromRole="Parts" ToRole="Used_Parts" />
+        </EntityType>
+        <EntityType Name="Service_Requests">
+          <Key>
+            <PropertyRef Name="ID_Request" />
+          </Key>
+          <Property Name="ID_Request" Type="Int32" Nullable="false" />
+          <Property Name="ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="ID_Equipment" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Problem_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Master" Type="Int32" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Service_R__ID_Cl__44FF419A" FromRole="Service_Requests" ToRole="Clients" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK__Service_R__ID_Eq__45F365D3" FromRole="Service_Requests" ToRole="Equipment" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Service_R__ID_Ma__46E78A0C" FromRole="Service_Requests" ToRole="Users" />
+          <NavigationProperty Name="Works" Relationship="Self.FK__Works__ID_Reques__49C3F6B7" FromRole="Service_Requests" ToRole="Works" />
+        </EntityType>
+        <EntityType Name="Used_Parts">
+          <Key>
+            <PropertyRef Name="ID_UsedPart" />
+          </Key>
+          <Property Name="ID_UsedPart" Type="Int32" Nullable="false" />
+          <Property Name="ID_Work" Type="Int32" Nullable="false" />
+          <Property Name="ID_Part" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK__Used_Part__ID_Pa__4F7CD00D" FromRole="Used_Parts" ToRole="Parts" />
+          <NavigationProperty Name="Works" Relationship="Self.FK__Used_Part__ID_Wo__4E88ABD4" FromRole="Used_Parts" ToRole="Works" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Service_Requests" Relationship="Self.FK__Service_R__ID_Ma__46E78A0C" FromRole="Users" ToRole="Service_Requests" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="ID_Work" />
+          </Key>
+          <Property Name="ID_Work" Type="Int32" Nullable="false" />
+          <Property Name="ID_Request" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Work_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Service_Requests" Relationship="Self.FK__Works__ID_Reques__49C3F6B7" FromRole="Works" ToRole="Service_Requests" />
+          <NavigationProperty Name="Used_Parts" Relationship="Self.FK__Used_Part__ID_Wo__4E88ABD4" FromRole="Works" ToRole="Used_Parts" />
+        </EntityType>
+        <Association Name="FK__Equipment__ID_Cl__3B75D760">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ID_Clien__3E52440B">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Cl__44FF419A">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__ID_Eq__4222D4EF">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID_Equipment" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="ID_Equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Eq__45F365D3">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="0..1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID_Equipment" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__ID_Or__412EB0B6">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID_Order" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="ID_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Used_Part__ID_Pa__4F7CD00D">
+          <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+          <End Role="Used_Parts" Type="Self.Used_Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parts">
+              <PropertyRef Name="ID_Part" />
+            </Principal>
+            <Dependent Role="Used_Parts">
+              <PropertyRef Name="ID_Part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service_R__ID_Ma__46E78A0C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Service_Requests">
+              <PropertyRef Name="ID_Master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Works__ID_Reques__49C3F6B7">
+          <End Role="Service_Requests" Type="Self.Service_Requests" Multiplicity="1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service_Requests">
+              <PropertyRef Name="ID_Request" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="ID_Request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Used_Part__ID_Wo__4E88ABD4">
+          <End Role="Works" Type="Self.Works" Multiplicity="1" />
+          <End Role="Used_Parts" Type="Self.Used_Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Works">
+              <PropertyRef Name="ID_Work" />
+            </Principal>
+            <Dependent Role="Used_Parts">
+              <PropertyRef Name="ID_Work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PolyPrintEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" />
+          <EntitySet Name="Service_Requests" EntityType="Self.Service_Requests" />
+          <EntitySet Name="Used_Parts" EntityType="Self.Used_Parts" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Works" EntityType="Self.Works" />
+          <AssociationSet Name="FK__Equipment__ID_Cl__3B75D760" Association="Self.FK__Equipment__ID_Cl__3B75D760">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ID_Clien__3E52440B" Association="Self.FK__Orders__ID_Clien__3E52440B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Cl__44FF419A" Association="Self.FK__Service_R__ID_Cl__44FF419A">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__ID_Eq__4222D4EF" Association="Self.FK__Order_Ite__ID_Eq__4222D4EF">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Eq__45F365D3" Association="Self.FK__Service_R__ID_Eq__45F365D3">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__ID_Or__412EB0B6" Association="Self.FK__Order_Ite__ID_Or__412EB0B6">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Used_Part__ID_Pa__4F7CD00D" Association="Self.FK__Used_Part__ID_Pa__4F7CD00D">
+            <End Role="Parts" EntitySet="Parts" />
+            <End Role="Used_Parts" EntitySet="Used_Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service_R__ID_Ma__46E78A0C" Association="Self.FK__Service_R__ID_Ma__46E78A0C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Works__ID_Reques__49C3F6B7" Association="Self.FK__Works__ID_Reques__49C3F6B7">
+            <End Role="Service_Requests" EntitySet="Service_Requests" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Used_Part__ID_Wo__4E88ABD4" Association="Self.FK__Used_Part__ID_Wo__4E88ABD4">
+            <End Role="Works" EntitySet="Works" />
+            <End Role="Used_Parts" EntitySet="Used_Parts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PolyPrintModelContainer" CdmEntityContainer="PolyPrintEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="PolyPrintModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Organization_Name" ColumnName="Organization_Name" />
+                <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipment">
+            <EntityTypeMapping TypeName="PolyPrintModel.Equipment">
+              <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="ID_Equipment" ColumnName="ID_Equipment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Serial_Number" ColumnName="Serial_Number" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="PolyPrintModel.Order_Items">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="ID_Item" ColumnName="ID_Item" />
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+                <ScalarProperty Name="ID_Equipment" ColumnName="ID_Equipment" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PolyPrintModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parts">
+            <EntityTypeMapping TypeName="PolyPrintModel.Parts">
+              <MappingFragment StoreEntitySet="Parts">
+                <ScalarProperty Name="ID_Part" ColumnName="ID_Part" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service_Requests">
+            <EntityTypeMapping TypeName="PolyPrintModel.Service_Requests">
+              <MappingFragment StoreEntitySet="Service_Requests">
+                <ScalarProperty Name="ID_Request" ColumnName="ID_Request" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="ID_Equipment" ColumnName="ID_Equipment" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Problem_Description" ColumnName="Problem_Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Used_Parts">
+            <EntityTypeMapping TypeName="PolyPrintModel.Used_Parts">
+              <MappingFragment StoreEntitySet="Used_Parts">
+                <ScalarProperty Name="ID_UsedPart" ColumnName="ID_UsedPart" />
+                <ScalarProperty Name="ID_Work" ColumnName="ID_Work" />
+                <ScalarProperty Name="ID_Part" ColumnName="ID_Part" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PolyPrintModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="PolyPrintModel.Works">
+              <MappingFragment StoreEntitySet="Works">
+                <ScalarProperty Name="ID_Work" ColumnName="ID_Work" />
+                <ScalarProperty Name="ID_Request" ColumnName="ID_Request" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Work_Date" ColumnName="Work_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

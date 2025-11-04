@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5b157536dc1b4906b3de48aa07ed5af7" Name="Diagram1">
+        <EntityTypeShape EntityType="PolyPrintModel.Clients" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Equipment" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Order_Items" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Orders" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Parts" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Service_Requests" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Used_Parts" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Users" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyPrintModel.Works" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="PolyPrintModel.FK__Equipment__ID_Cl__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Orders__ID_Clien__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Service_R__ID_Cl__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Order_Ite__ID_Eq__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Service_R__ID_Eq__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Order_Ite__ID_Or__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Used_Part__ID_Pa__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Service_R__ID_Ma__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Works__ID_Reques__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyPrintModel.FK__Used_Part__ID_Wo__4E88ABD4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
