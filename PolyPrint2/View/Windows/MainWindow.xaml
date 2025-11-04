@@ -69,8 +69,13 @@
                         Style="{StaticResource SecondaryButton}"
                         Margin="15,0,15,12"/>
 
+                <Button x:Name="PartsButton"
+                        Content="⚙ Запчасти"
+                        Style="{StaticResource SecondaryButton}"
+                        Margin="15,0,15,12"/>
+
                 <Button x:Name="StatisticsButton"
-                        Content="Статистика"
+                        Content="📊 Статистика"
                         Style="{StaticResource SecondaryButton}"
                         Margin="15,0,15,12"/>
 

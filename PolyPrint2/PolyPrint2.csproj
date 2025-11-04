@@ -122,6 +122,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Pages\PartsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\EditPartWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,6 +137,7 @@
     <Compile Include="AppData\AuthService.cs" />
     <Compile Include="AppData\NotificationService.cs" />
     <Compile Include="AppData\ValidationService.cs" />
+    <Compile Include="AppData\ExportService.cs" />
     <Compile Include="AppData\EquipmentGridItem.cs" />
     <Compile Include="AppData\OrderGridItem.cs" />
     <Compile Include="AppData\ServiceRequestGridItem.cs" />
@@ -216,6 +225,12 @@
     </Compile>
     <Compile Include="View\Pages\StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\PartsPage.xaml.cs">
+      <DependentUpon>PartsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditPartWindow.xaml.cs">
+      <DependentUpon>EditPartWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

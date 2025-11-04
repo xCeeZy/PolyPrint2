@@ -46,6 +46,7 @@ namespace PolyPrint2.View.Windows
             EquipmentButton.Visibility = isAdmin || isManager ? Visibility.Visible : Visibility.Collapsed;
             OrdersButton.Visibility = isAdmin || isManager ? Visibility.Visible : Visibility.Collapsed;
             ServiceRequestsButton.Visibility = Visibility.Visible;
+            PartsButton.Visibility = isAdmin || isManager ? Visibility.Visible : Visibility.Collapsed;
             StatisticsButton.Visibility = isAdmin || isManager ? Visibility.Visible : Visibility.Collapsed;
             UsersButton.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -60,6 +61,7 @@ namespace PolyPrint2.View.Windows
             EquipmentButton.Click += EquipmentButton_Click;
             OrdersButton.Click += OrdersButton_Click;
             ServiceRequestsButton.Click += ServiceRequestsButton_Click;
+            PartsButton.Click += PartsButton_Click;
             StatisticsButton.Click += StatisticsButton_Click;
             UsersButton.Click += UsersButton_Click;
             LogoutButton.Click += LogoutButton_Click;
@@ -87,6 +89,11 @@ namespace PolyPrint2.View.Windows
         private void ServiceRequestsButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new ServiceRequestsPage());
+        }
+
+        private void PartsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new PartsPage());
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)

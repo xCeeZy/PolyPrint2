@@ -52,7 +52,25 @@ namespace PolyPrint2.View.Pages
                 .OrderByDescending(s => s.Count)
                 .ToList();
 
-            StatusStatsGrid.ItemsSource = stats;
+            int maxCount = stats.Any() ? stats.Max(s => s.Count) : 1;
+            foreach (StatusStatItem item in stats)
+            {
+                item.MaxCount = maxCount;
+                item.BarColor = GetStatusColor(item.Status);
+            }
+
+            StatusStatsControl.ItemsSource = stats;
+        }
+
+        private string GetStatusColor(string status)
+        {
+            if (status == null) return "#95A5A6";
+            if (status.Contains("Новая")) return "#3498DB";
+            if (status.Contains("В работе")) return "#F39C12";
+            if (status.Contains("Ожидание")) return "#E67E22";
+            if (status.Contains("Выполнена")) return "#27AE60";
+            if (status.Contains("Закрыта")) return "#95A5A6";
+            return "#2C3E50";
         }
 
         private void LoadEquipmentStats()
@@ -67,7 +85,24 @@ namespace PolyPrint2.View.Pages
                 .OrderByDescending(s => s.Count)
                 .ToList();
 
-            EquipmentStatsGrid.ItemsSource = stats;
+            int maxCount = stats.Any() ? stats.Max(s => s.Count) : 1;
+            foreach (EquipmentStatItem item in stats)
+            {
+                item.MaxCount = maxCount;
+                item.BarColor = GetConditionColor(item.Condition);
+            }
+
+            EquipmentStatsControl.ItemsSource = stats;
+        }
+
+        private string GetConditionColor(string condition)
+        {
+            if (condition == null) return "#95A5A6";
+            if (condition.Contains("Исправно")) return "#27AE60";
+            if (condition.Contains("Требует обслуживания")) return "#F39C12";
+            if (condition.Contains("Неисправно")) return "#E74C3C";
+            if (condition.Contains("На ремонте")) return "#3498DB";
+            return "#2C3E50";
         }
 
         private void LoadMasterStats()
@@ -104,12 +139,16 @@ namespace PolyPrint2.View.Pages
     {
         public string Status { get; set; }
         public int Count { get; set; }
+        public int MaxCount { get; set; }
+        public string BarColor { get; set; }
     }
 
     public class EquipmentStatItem
     {
         public string Condition { get; set; }
         public int Count { get; set; }
+        public int MaxCount { get; set; }
+        public string BarColor { get; set; }
     }
 
     public class MasterStatItem

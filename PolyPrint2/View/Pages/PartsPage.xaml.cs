@@ -8,17 +8,17 @@ using System.Windows.Controls;
 
 namespace PolyPrint2.View.Pages
 {
-    public partial class ClientsPage : Page
+    public partial class PartsPage : Page
     {
         #region Поля
 
-        private List<Clients> allClients;
+        private List<Parts> allParts;
 
         #endregion
 
         #region Инициализация
 
-        public ClientsPage()
+        public PartsPage()
         {
             InitializeComponent();
             InitializeEvents();
@@ -31,7 +31,6 @@ namespace PolyPrint2.View.Pages
             AddButton.Click += AddButton_Click;
             EditButton.Click += EditButton_Click;
             DeleteButton.Click += DeleteButton_Click;
-            ExportButton.Click += ExportButton_Click;
         }
 
         #endregion
@@ -40,8 +39,8 @@ namespace PolyPrint2.View.Pages
 
         private void LoadData()
         {
-            allClients = App.context.Clients.ToList();
-            ClientsGrid.ItemsSource = allClients;
+            allParts = App.context.Parts.ToList();
+            PartsGrid.ItemsSource = allParts;
         }
 
         #endregion
@@ -54,18 +53,16 @@ namespace PolyPrint2.View.Pages
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                ClientsGrid.ItemsSource = allClients;
+                PartsGrid.ItemsSource = allParts;
                 return;
             }
 
-            List<Clients> filtered = allClients.Where(c =>
-                c.Organization_Name.ToLower().Contains(searchText) ||
-                (c.Contact_Name != null && c.Contact_Name.ToLower().Contains(searchText)) ||
-                (c.Phone != null && c.Phone.Contains(searchText)) ||
-                (c.Email != null && c.Email.ToLower().Contains(searchText))
+            List<Parts> filtered = allParts.Where(p =>
+                (p.Part_Name != null && p.Part_Name.ToLower().Contains(searchText)) ||
+                (p.Article_Number != null && p.Article_Number.ToLower().Contains(searchText))
             ).ToList();
 
-            ClientsGrid.ItemsSource = filtered;
+            PartsGrid.ItemsSource = filtered;
         }
 
         #endregion
@@ -74,7 +71,7 @@ namespace PolyPrint2.View.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            EditClientWindow window = new EditClientWindow(null);
+            EditPartWindow window = new EditPartWindow(null);
             if (window.ShowDialog() == true)
             {
                 LoadData();
@@ -87,14 +84,14 @@ namespace PolyPrint2.View.Pages
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientsGrid.SelectedItem == null)
+            if (PartsGrid.SelectedItem == null)
             {
-                NotificationService.ShowWarning("Выберите клиента для редактирования");
+                NotificationService.ShowWarning("Выберите запчасть для редактирования");
                 return;
             }
 
-            Clients selectedClient = ClientsGrid.SelectedItem as Clients;
-            EditClientWindow window = new EditClientWindow(selectedClient);
+            Parts selectedPart = PartsGrid.SelectedItem as Parts;
+            EditPartWindow window = new EditPartWindow(selectedPart);
             if (window.ShowDialog() == true)
             {
                 LoadData();
@@ -107,38 +104,25 @@ namespace PolyPrint2.View.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientsGrid.SelectedItem == null)
+            if (PartsGrid.SelectedItem == null)
             {
-                NotificationService.ShowWarning("Выберите клиента для удаления");
+                NotificationService.ShowWarning("Выберите запчасть для удаления");
                 return;
             }
 
-            Clients selectedClient = ClientsGrid.SelectedItem as Clients;
+            Parts selectedPart = PartsGrid.SelectedItem as Parts;
 
             MessageBoxResult result = NotificationService.ShowConfirmation(
-                "Вы уверены, что хотите удалить клиента " + selectedClient.Organization_Name + "?",
+                "Вы уверены, что хотите удалить запчасть " + selectedPart.Part_Name + "?",
                 "Подтверждение удаления"
             );
 
             if (result == MessageBoxResult.Yes)
             {
-                App.context.Clients.Remove(selectedClient);
+                App.context.Parts.Remove(selectedPart);
                 App.context.SaveChanges();
-                NotificationService.ShowSuccess("Клиент успешно удалён");
+                NotificationService.ShowSuccess("Запчасть успешно удалена");
                 LoadData();
-            }
-        }
-
-        #endregion
-
-        #region Экспорт
-
-        private void ExportButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<Clients> dataToExport = ClientsGrid.ItemsSource as List<Clients>;
-            if (dataToExport != null)
-            {
-                ExportService.ExportToCSV(dataToExport, "Клиенты.csv");
             }
         }
 

@@ -28,6 +28,10 @@ namespace PolyPrint2.View.Pages
         private void InitializeEvents()
         {
             SearchBox.TextChanged += SearchBox_TextChanged;
+            FilterAllButton.Click += FilterAllButton_Click;
+            FilterNewButton.Click += FilterNewButton_Click;
+            FilterInProgressButton.Click += FilterInProgressButton_Click;
+            FilterCompletedButton.Click += FilterCompletedButton_Click;
             AddButton.Click += AddButton_Click;
             EditButton.Click += EditButton_Click;
             ViewWorksButton.Click += ViewWorksButton_Click;
@@ -83,6 +87,37 @@ namespace PolyPrint2.View.Pages
             ).ToList();
 
             RequestsGrid.ItemsSource = filtered;
+        }
+
+        #endregion
+
+        #region Фильтры
+
+        private void FilterAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsGrid.ItemsSource = allRequests;
+            SearchBox.Text = "";
+        }
+
+        private void FilterNewButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "Новая").ToList();
+            RequestsGrid.ItemsSource = filtered;
+            SearchBox.Text = "";
+        }
+
+        private void FilterInProgressButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "В работе").ToList();
+            RequestsGrid.ItemsSource = filtered;
+            SearchBox.Text = "";
+        }
+
+        private void FilterCompletedButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "Выполнена" || r.Status == "Закрыта").ToList();
+            RequestsGrid.ItemsSource = filtered;
+            SearchBox.Text = "";
         }
 
         #endregion

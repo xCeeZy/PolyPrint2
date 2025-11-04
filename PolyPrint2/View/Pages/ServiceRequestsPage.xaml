@@ -9,6 +9,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -19,8 +21,34 @@
                    Style="{StaticResource HeaderText}"/>
         <!--#endregion-->
 
+        <!--#region Быстрые фильтры-->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
+            <Button x:Name="FilterAllButton"
+                    Content="Все"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="100"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterNewButton"
+                    Content="⚡ Новые"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="110"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterInProgressButton"
+                    Content="⚙ В работе"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="130"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterCompletedButton"
+                    Content="✓ Выполнена"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="130"
+                    Margin="0,0,8,0"/>
+        </StackPanel>
+        <!--#endregion-->
+
         <!--#region Панель управления-->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>
@@ -39,33 +67,33 @@
 
             <Button x:Name="AddButton"
                     Grid.Column="2"
-                    Content="Добавить"
+                    Content="➕ Добавить"
                     Style="{StaticResource SuccessButton}"
-                    Width="120"/>
+                    Width="130"/>
 
             <Button x:Name="EditButton"
                     Grid.Column="4"
-                    Content="Редактировать"
+                    Content="✎ Редактировать"
                     Style="{StaticResource PrimaryButton}"
-                    Width="140"/>
+                    Width="160"/>
 
             <Button x:Name="ViewWorksButton"
                     Grid.Column="6"
-                    Content="Работы"
+                    Content="📋 Работы"
                     Style="{StaticResource SecondaryButton}"
-                    Width="120"/>
+                    Width="130"/>
 
             <Button x:Name="DeleteButton"
                     Grid.Column="8"
-                    Content="Удалить"
+                    Content="🗑 Удалить"
                     Style="{StaticResource DangerButton}"
-                    Width="120"/>
+                    Width="130"/>
         </Grid>
         <!--#endregion-->
 
         <!--#region Таблица заявок-->
         <DataGrid x:Name="RequestsGrid"
-                  Grid.Row="4"
+                  Grid.Row="6"
                   Style="{StaticResource MainDataGrid}"
                   ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
                   CellStyle="{StaticResource DataGridCell}">

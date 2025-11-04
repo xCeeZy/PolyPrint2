@@ -107,17 +107,53 @@
                            Text="Заявки по статусам"
                            Style="{StaticResource SubHeaderText}"/>
 
-                <DataGrid x:Name="StatusStatsGrid"
-                          Grid.Row="2"
-                          Style="{StaticResource MainDataGrid}"
-                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-                          CellStyle="{StaticResource DataGridCell}"
-                          Height="200">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
-                        <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="150"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ItemsControl x:Name="StatusStatsControl"
+                              Grid.Row="2">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White"
+                                    Margin="0,0,0,12"
+                                    Padding="16"
+                                    CornerRadius="6">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="{Binding Status}"
+                                               Style="{StaticResource NormalText}"
+                                               FontWeight="SemiBold"
+                                               FontSize="16"/>
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               FontWeight="Bold"
+                                               FontSize="18">
+                                        <Run Text="{Binding Count}"/>
+                                        <Run Text=" заявок" FontSize="14" Foreground="#7F8C8D"/>
+                                    </TextBlock>
+
+                                    <ProgressBar Grid.Row="2"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Height="8"
+                                                 Maximum="{Binding MaxCount}"
+                                                 Value="{Binding Count}"
+                                                 Foreground="{Binding BarColor}"
+                                                 Background="#ECF0F1"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
             <!--#endregion-->
 
@@ -133,17 +169,53 @@
                            Text="Оборудование по состоянию"
                            Style="{StaticResource SubHeaderText}"/>
 
-                <DataGrid x:Name="EquipmentStatsGrid"
-                          Grid.Row="2"
-                          Style="{StaticResource MainDataGrid}"
-                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-                          CellStyle="{StaticResource DataGridCell}"
-                          Height="200">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Состояние" Binding="{Binding Condition}" Width="*"/>
-                        <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="150"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ItemsControl x:Name="EquipmentStatsControl"
+                              Grid.Row="2">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White"
+                                    Margin="0,0,0,12"
+                                    Padding="16"
+                                    CornerRadius="6">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="{Binding Condition}"
+                                               Style="{StaticResource NormalText}"
+                                               FontWeight="SemiBold"
+                                               FontSize="16"/>
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               FontWeight="Bold"
+                                               FontSize="18">
+                                        <Run Text="{Binding Count}"/>
+                                        <Run Text=" ед." FontSize="14" Foreground="#7F8C8D"/>
+                                    </TextBlock>
+
+                                    <ProgressBar Grid.Row="2"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Height="8"
+                                                 Maximum="{Binding MaxCount}"
+                                                 Value="{Binding Count}"
+                                                 Foreground="{Binding BarColor}"
+                                                 Background="#ECF0F1"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
             <!--#endregion-->
 

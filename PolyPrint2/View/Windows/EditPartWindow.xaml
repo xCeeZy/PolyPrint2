@@ -1,0 +1,101 @@
+<!--#region Окно редактирования запчасти-->
+<Window x:Class="PolyPrint2.View.Windows.EditPartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Запчасть"
+        WindowStartupLocation="CenterScreen"
+        Width="550"
+        Height="450"
+        ResizeMode="NoResize"
+        Background="{StaticResource WindowBrush}">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Заголовок-->
+        <TextBlock x:Name="TitleText"
+                   Grid.Row="0"
+                   Text="Добавление запчасти"
+                   Style="{StaticResource SubHeaderText}"/>
+        <!--#endregion-->
+
+        <!--#region Название-->
+        <TextBlock Grid.Row="2"
+                   Text="Название запчасти"
+                   Style="{StaticResource LabelText}"/>
+        <TextBox x:Name="PartNameBox"
+                 Grid.Row="4"
+                 Style="{StaticResource InputTextBox}"/>
+        <!--#endregion-->
+
+        <!--#region Артикул-->
+        <TextBlock Grid.Row="6"
+                   Text="Артикул"
+                   Style="{StaticResource LabelText}"/>
+        <TextBox x:Name="ArticleNumberBox"
+                 Grid.Row="8"
+                 Style="{StaticResource InputTextBox}"/>
+        <!--#endregion-->
+
+        <!--#region Цена-->
+        <TextBlock Grid.Row="10"
+                   Text="Цена (руб.)"
+                   Style="{StaticResource LabelText}"/>
+        <TextBox x:Name="PriceBox"
+                 Grid.Row="12"
+                 Style="{StaticResource InputTextBox}"/>
+        <!--#endregion-->
+
+        <!--#region Количество-->
+        <TextBlock Grid.Row="14"
+                   Text="Количество на складе"
+                   Style="{StaticResource LabelText}"/>
+        <TextBox x:Name="StockQuantityBox"
+                 Grid.Row="16"
+                 Style="{StaticResource InputTextBox}"/>
+        <!--#endregion-->
+
+        <!--#region Кнопки-->
+        <Grid Grid.Row="18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="SaveButton"
+                    Grid.Column="0"
+                    Content="Сохранить"
+                    Style="{StaticResource SuccessButton}"
+                    Height="40"/>
+
+            <Button x:Name="CancelButton"
+                    Grid.Column="2"
+                    Content="Отмена"
+                    Style="{StaticResource SecondaryButton}"
+                    Height="40"/>
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</Window>
+<!--#endregion-->
