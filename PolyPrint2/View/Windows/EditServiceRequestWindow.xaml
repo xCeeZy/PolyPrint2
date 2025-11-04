@@ -1,16 +1,20 @@
-<!--#region Окно редактирования клиента-->
-<Window x:Class="PolyPrint2.View.Windows.EditClientWindow"
+<!--#region Окно редактирования сервисной заявки-->
+<Window x:Class="PolyPrint2.View.Windows.EditServiceRequestWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Клиент"
+        Title="Сервисная заявка"
         WindowStartupLocation="CenterScreen"
-        Width="550"
-        Height="480"
+        Width="650"
+        Height="600"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
@@ -35,48 +39,68 @@
         <!--#region Заголовок-->
         <TextBlock x:Name="TitleText"
                    Grid.Row="0"
-                   Text="Добавление клиента"
+                   Text="Создание сервисной заявки"
                    Style="{StaticResource SubHeaderText}"/>
         <!--#endregion-->
 
-        <!--#region Организация-->
+        <!--#region Клиент-->
         <TextBlock Grid.Row="2"
-                   Text="Название организации"
+                   Text="Клиент"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="OrganizationBox"
-                 Grid.Row="4"
-                 Style="{StaticResource InputTextBox}"/>
+        <ComboBox x:Name="ClientBox"
+                  Grid.Row="4"
+                  Style="{StaticResource InputComboBox}"
+                  DisplayMemberPath="Organization_Name"
+                  SelectedValuePath="ID_Client"/>
         <!--#endregion-->
 
-        <!--#region Контактное лицо-->
+        <!--#region Оборудование-->
         <TextBlock Grid.Row="6"
-                   Text="Контактное лицо"
+                   Text="Оборудование"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="ContactNameBox"
-                 Grid.Row="8"
-                 Style="{StaticResource InputTextBox}"/>
+        <ComboBox x:Name="EquipmentBox"
+                  Grid.Row="8"
+                  Style="{StaticResource InputComboBox}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="ID_Equipment"/>
         <!--#endregion-->
 
-        <!--#region Телефон-->
+        <!--#region Описание проблемы-->
         <TextBlock Grid.Row="10"
-                   Text="Телефон"
+                   Text="Описание проблемы"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="PhoneBox"
+        <TextBox x:Name="ProblemBox"
                  Grid.Row="12"
-                 Style="{StaticResource InputTextBox}"/>
+                 Height="100"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 VerticalContentAlignment="Top"
+                 Padding="8"/>
         <!--#endregion-->
 
-        <!--#region Email-->
+        <!--#region Статус-->
         <TextBlock Grid.Row="14"
-                   Text="Email"
+                   Text="Статус"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="EmailBox"
-                 Grid.Row="16"
-                 Style="{StaticResource InputTextBox}"/>
+        <ComboBox x:Name="StatusBox"
+                  Grid.Row="16"
+                  Style="{StaticResource InputComboBox}"/>
+        <!--#endregion-->
+
+        <!--#region Мастер-->
+        <TextBlock Grid.Row="18"
+                   Text="Назначить мастера"
+                   Style="{StaticResource LabelText}"/>
+        <ComboBox x:Name="MasterBox"
+                  Grid.Row="20"
+                  Style="{StaticResource InputComboBox}"
+                  DisplayMemberPath="Login"
+                  SelectedValuePath="ID_User"/>
         <!--#endregion-->
 
         <!--#region Кнопки-->
-        <Grid Grid.Row="18">
+        <Grid Grid.Row="22">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>

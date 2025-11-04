@@ -1,5 +1,6 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
+using PolyPrint2.View.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -83,7 +84,11 @@ namespace PolyPrint2.View.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            NotificationService.ShowInfo("Функция добавления оборудования в разработке");
+            EditEquipmentWindow window = new EditEquipmentWindow(null);
+            if (window.ShowDialog() == true)
+            {
+                LoadData();
+            }
         }
 
         #endregion
@@ -98,7 +103,20 @@ namespace PolyPrint2.View.Pages
                 return;
             }
 
-            NotificationService.ShowInfo("Функция редактирования оборудования в разработке");
+            EquipmentGridItem selectedItem = EquipmentGrid.SelectedItem as EquipmentGridItem;
+            Equipment equipment = App.context.Equipment.Find(selectedItem.ID_Equipment);
+
+            if (equipment == null)
+            {
+                NotificationService.ShowError("Оборудование не найдено");
+                return;
+            }
+
+            EditEquipmentWindow window = new EditEquipmentWindow(equipment);
+            if (window.ShowDialog() == true)
+            {
+                LoadData();
+            }
         }
 
         #endregion

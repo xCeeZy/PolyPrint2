@@ -1,5 +1,6 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
+using PolyPrint2.View.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -28,6 +29,9 @@ namespace PolyPrint2.View.Pages
         {
             SearchBox.TextChanged += SearchBox_TextChanged;
             AddButton.Click += AddButton_Click;
+            EditButton.Click += EditButton_Click;
+            ViewWorksButton.Click += ViewWorksButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
         }
 
         #endregion
@@ -87,7 +91,99 @@ namespace PolyPrint2.View.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            NotificationService.ShowInfo("Функция добавления заявок в разработке");
+            EditServiceRequestWindow window = new EditServiceRequestWindow(null);
+            if (window.ShowDialog() == true)
+            {
+                LoadData();
+            }
+        }
+
+        #endregion
+
+        #region Редактирование
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RequestsGrid.SelectedItem == null)
+            {
+                NotificationService.ShowWarning("Выберите заявку для редактирования");
+                return;
+            }
+
+            ServiceRequestGridItem selectedItem = RequestsGrid.SelectedItem as ServiceRequestGridItem;
+            Service_Requests request = App.context.Service_Requests.Find(selectedItem.ID_Request);
+
+            if (request == null)
+            {
+                NotificationService.ShowError("Заявка не найдена");
+                return;
+            }
+
+            EditServiceRequestWindow window = new EditServiceRequestWindow(request);
+            if (window.ShowDialog() == true)
+            {
+                LoadData();
+            }
+        }
+
+        #endregion
+
+        #region Просмотр работ
+
+        private void ViewWorksButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RequestsGrid.SelectedItem == null)
+            {
+                NotificationService.ShowWarning("Выберите заявку");
+                return;
+            }
+
+            ServiceRequestGridItem selectedItem = RequestsGrid.SelectedItem as ServiceRequestGridItem;
+            Service_Requests request = App.context.Service_Requests.Find(selectedItem.ID_Request);
+
+            if (request == null)
+            {
+                NotificationService.ShowError("Заявка не найдена");
+                return;
+            }
+
+            WorksWindow window = new WorksWindow(request);
+            window.ShowDialog();
+        }
+
+        #endregion
+
+        #region Удаление
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RequestsGrid.SelectedItem == null)
+            {
+                NotificationService.ShowWarning("Выберите заявку для удаления");
+                return;
+            }
+
+            ServiceRequestGridItem selectedItem = RequestsGrid.SelectedItem as ServiceRequestGridItem;
+            Service_Requests request = App.context.Service_Requests.Find(selectedItem.ID_Request);
+
+            if (request == null)
+            {
+                NotificationService.ShowError("Заявка не найдена");
+                return;
+            }
+
+            MessageBoxResult result = NotificationService.ShowConfirmation(
+                "Вы уверены, что хотите удалить заявку #" + request.ID_Request + "?",
+                "Подтверждение удаления"
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                App.context.Service_Requests.Remove(request);
+                App.context.SaveChanges();
+                NotificationService.ShowSuccess("Заявка успешно удалена");
+                LoadData();
+            }
         }
 
         #endregion
