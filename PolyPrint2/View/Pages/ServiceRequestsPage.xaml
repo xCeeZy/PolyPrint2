@@ -25,6 +25,12 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="SearchBox"
@@ -33,9 +39,27 @@
 
             <Button x:Name="AddButton"
                     Grid.Column="2"
-                    Content="Добавить заявку"
+                    Content="Добавить"
                     Style="{StaticResource SuccessButton}"
-                    Width="160"/>
+                    Width="120"/>
+
+            <Button x:Name="EditButton"
+                    Grid.Column="4"
+                    Content="Редактировать"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="140"/>
+
+            <Button x:Name="ViewWorksButton"
+                    Grid.Column="6"
+                    Content="Работы"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="120"/>
+
+            <Button x:Name="DeleteButton"
+                    Grid.Column="8"
+                    Content="Удалить"
+                    Style="{StaticResource DangerButton}"
+                    Width="120"/>
         </Grid>
         <!--#endregion-->
 

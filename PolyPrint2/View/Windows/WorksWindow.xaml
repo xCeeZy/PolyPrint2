@@ -1,0 +1,104 @@
+<!--#region Окно работ по заявке-->
+<Window x:Class="PolyPrint2.View.Windows.WorksWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Работы по заявке"
+        WindowStartupLocation="CenterScreen"
+        Width="900"
+        Height="650"
+        ResizeMode="NoResize"
+        Background="{StaticResource WindowBrush}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Заголовок-->
+        <TextBlock Grid.Row="0"
+                   Text="Работы по заявке"
+                   Style="{StaticResource HeaderText}"/>
+        <!--#endregion-->
+
+        <!--#region Информация о заявке-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="RequestInfoText"
+                       Grid.Row="0"
+                       Style="{StaticResource NormalText}"
+                       FontWeight="SemiBold"/>
+
+            <TextBlock x:Name="ProblemText"
+                       Grid.Row="2"
+                       Style="{StaticResource NormalText}"
+                       TextWrapping="Wrap"/>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Список работ-->
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="AddWorkButton"
+                    Grid.Row="0"
+                    Content="Добавить работу"
+                    Style="{StaticResource SuccessButton}"
+                    Width="180"
+                    HorizontalAlignment="Left"/>
+
+            <DataGrid x:Name="WorksGrid"
+                      Grid.Row="2"
+                      Style="{StaticResource MainDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                      CellStyle="{StaticResource DataGridCell}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding Work_Date, StringFormat=dd.MM.yyyy}" Width="100"/>
+                    <DataGridTextColumn Header="Описание работы" Binding="{Binding Description}" Width="*"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:N2} руб.}" Width="120"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Итого-->
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="TotalText"
+                       Grid.Column="1"
+                       Text="Общая стоимость:"
+                       Style="{StaticResource NormalText}"
+                       FontSize="16"
+                       FontWeight="SemiBold"/>
+
+            <Button x:Name="CloseButton"
+                    Grid.Column="3"
+                    Content="Закрыть"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="120"
+                    Height="40"/>
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</Window>
+<!--#endregion-->

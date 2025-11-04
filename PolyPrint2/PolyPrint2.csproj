@@ -82,6 +82,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Windows\EditEquipmentWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\EditServiceRequestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\WorksWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\AddWorkWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Pages\ClientsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,6 +182,18 @@
     </Compile>
     <Compile Include="View\Windows\EditUserWindow.xaml.cs">
       <DependentUpon>EditUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditEquipmentWindow.xaml.cs">
+      <DependentUpon>EditEquipmentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditServiceRequestWindow.xaml.cs">
+      <DependentUpon>EditServiceRequestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\WorksWindow.xaml.cs">
+      <DependentUpon>WorksWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddWorkWindow.xaml.cs">
+      <DependentUpon>AddWorkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\ClientsPage.xaml.cs">
       <DependentUpon>ClientsPage.xaml</DependentUpon>
