@@ -63,10 +63,9 @@
                   CellStyle="{StaticResource DataGridCell}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID_Part}" Width="60"/>
-                <DataGridTextColumn Header="Название" Binding="{Binding Part_Name}" Width="*"/>
-                <DataGridTextColumn Header="Артикул" Binding="{Binding Article_Number}" Width="150"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2} руб.}" Width="150"/>
-                <DataGridTextColumn Header="Кол-во на складе" Binding="{Binding Stock_Quantity}" Width="150"/>
+                <DataGridTextColumn Header="Кол-во на складе" Binding="{Binding Quantity}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--#endregion-->

@@ -5,16 +5,12 @@
         Title="Запчасть"
         WindowStartupLocation="CenterScreen"
         Width="550"
-        Height="450"
+        Height="380"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="8"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
@@ -43,40 +39,31 @@
         <TextBlock Grid.Row="2"
                    Text="Название запчасти"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="PartNameBox"
+        <TextBox x:Name="NameBox"
                  Grid.Row="4"
                  Style="{StaticResource InputTextBox}"/>
         <!--#endregion-->
 
-        <!--#region Артикул-->
+        <!--#region Цена-->
         <TextBlock Grid.Row="6"
-                   Text="Артикул"
+                   Text="Цена (руб.)"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="ArticleNumberBox"
+        <TextBox x:Name="PriceBox"
                  Grid.Row="8"
                  Style="{StaticResource InputTextBox}"/>
         <!--#endregion-->
 
-        <!--#region Цена-->
+        <!--#region Количество-->
         <TextBlock Grid.Row="10"
-                   Text="Цена (руб.)"
+                   Text="Количество на складе"
                    Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="PriceBox"
+        <TextBox x:Name="QuantityBox"
                  Grid.Row="12"
                  Style="{StaticResource InputTextBox}"/>
         <!--#endregion-->
 
-        <!--#region Количество-->
-        <TextBlock Grid.Row="14"
-                   Text="Количество на складе"
-                   Style="{StaticResource LabelText}"/>
-        <TextBox x:Name="StockQuantityBox"
-                 Grid.Row="16"
-                 Style="{StaticResource InputTextBox}"/>
-        <!--#endregion-->
-
         <!--#region Кнопки-->
-        <Grid Grid.Row="18">
+        <Grid Grid.Row="14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>

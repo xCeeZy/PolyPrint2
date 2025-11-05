@@ -40,10 +40,9 @@ namespace PolyPrint2.View.Windows
             if (isEditMode)
             {
                 TitleText.Text = "Редактирование запчасти";
-                PartNameBox.Text = currentPart.Part_Name;
-                ArticleNumberBox.Text = currentPart.Article_Number;
+                NameBox.Text = currentPart.Name;
                 PriceBox.Text = currentPart.Price.ToString();
-                StockQuantityBox.Text = currentPart.Stock_Quantity.ToString();
+                QuantityBox.Text = currentPart.Quantity.ToString();
             }
             else
             {
@@ -57,20 +56,13 @@ namespace PolyPrint2.View.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            string partName = PartNameBox.Text.Trim();
-            string articleNumber = ArticleNumberBox.Text.Trim();
+            string name = NameBox.Text.Trim();
             string priceText = PriceBox.Text.Trim();
-            string stockText = StockQuantityBox.Text.Trim();
+            string quantityText = QuantityBox.Text.Trim();
 
-            if (!ValidationService.IsNotEmpty(partName))
+            if (!ValidationService.IsNotEmpty(name))
             {
                 NotificationService.ShowWarning("Введите название запчасти");
-                return;
-            }
-
-            if (!ValidationService.IsNotEmpty(articleNumber))
-            {
-                NotificationService.ShowWarning("Введите артикул");
                 return;
             }
 
@@ -81,8 +73,8 @@ namespace PolyPrint2.View.Windows
                 return;
             }
 
-            int stockQuantity;
-            if (!int.TryParse(stockText, out stockQuantity) || stockQuantity < 0)
+            int quantity;
+            if (!int.TryParse(quantityText, out quantity) || quantity < 0)
             {
                 NotificationService.ShowWarning("Введите корректное количество");
                 return;
@@ -90,20 +82,18 @@ namespace PolyPrint2.View.Windows
 
             if (isEditMode)
             {
-                currentPart.Part_Name = partName;
-                currentPart.Article_Number = articleNumber;
+                currentPart.Name = name;
                 currentPart.Price = price;
-                currentPart.Stock_Quantity = stockQuantity;
+                currentPart.Quantity = quantity;
                 NotificationService.ShowSuccess("Запчасть успешно обновлена");
             }
             else
             {
                 Parts newPart = new Parts
                 {
-                    Part_Name = partName,
-                    Article_Number = articleNumber,
+                    Name = name,
                     Price = price,
-                    Stock_Quantity = stockQuantity
+                    Quantity = quantity
                 };
                 App.context.Parts.Add(newPart);
                 NotificationService.ShowSuccess("Запчасть успешно добавлена");

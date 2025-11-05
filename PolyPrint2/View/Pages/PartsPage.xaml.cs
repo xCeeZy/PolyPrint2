@@ -58,8 +58,7 @@ namespace PolyPrint2.View.Pages
             }
 
             List<Parts> filtered = allParts.Where(p =>
-                (p.Part_Name != null && p.Part_Name.ToLower().Contains(searchText)) ||
-                (p.Article_Number != null && p.Article_Number.ToLower().Contains(searchText))
+                (p.Name != null && p.Name.ToLower().Contains(searchText))
             ).ToList();
 
             PartsGrid.ItemsSource = filtered;
@@ -113,7 +112,7 @@ namespace PolyPrint2.View.Pages
             Parts selectedPart = PartsGrid.SelectedItem as Parts;
 
             MessageBoxResult result = NotificationService.ShowConfirmation(
-                "Вы уверены, что хотите удалить запчасть " + selectedPart.Part_Name + "?",
+                "Вы уверены, что хотите удалить запчасть " + selectedPart.Name + "?",
                 "Подтверждение удаления"
             );
 
