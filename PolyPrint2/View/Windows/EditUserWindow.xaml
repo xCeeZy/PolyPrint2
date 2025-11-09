@@ -5,11 +5,11 @@
         Title="Пользователь"
         WindowStartupLocation="CenterScreen"
         Width="500"
-        Height="400"
+        Height="418"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
-    <Grid Margin="30">
+    <Grid Margin="30,30,30,21">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>

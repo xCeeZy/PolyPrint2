@@ -5,12 +5,12 @@
         Title="Сервисная заявка"
         WindowStartupLocation="CenterScreen"
         Width="650"
-        Height="600"
+        Height="623"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="30">
+        <Grid Margin="30" Height="557">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="16"/>

@@ -5,11 +5,11 @@
         Title="PolyPrint - Авторизация"
         WindowStartupLocation="CenterScreen"
         Width="450"
-        Height="350"
+        Height="396"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
-    <Grid Margin="40">
+    <Grid Margin="40,40,40,17">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
@@ -24,13 +24,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="13*"/>
         </Grid.RowDefinitions>
 
         <!--#region Заголовок-->
         <TextBlock Grid.Row="0"
                    Text="АИС PolyPrint"
                    Style="{StaticResource HeaderText}"
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Center" Margin="0,0,0,20" Grid.RowSpan="2"/>
         <!--#endregion-->
 
         <!--#region Описание-->
@@ -45,8 +47,8 @@
                    Text="Логин"
                    Style="{StaticResource LabelText}"/>
         <TextBox x:Name="LoginBox"
-                 Grid.Row="6"
-                 Style="{StaticResource InputTextBox}"/>
+                 Grid.Row="5"
+                 Style="{StaticResource InputTextBox}" Margin="0,8,0,0" Grid.RowSpan="2"/>
         <!--#endregion-->
 
         <!--#region Поле пароля-->
@@ -55,7 +57,7 @@
                    Style="{StaticResource LabelText}"/>
         <PasswordBox x:Name="PasswordBox"
                      Grid.Row="10"
-                     Style="{StaticResource InputPasswordBox}"/>
+                     Style="{StaticResource InputPasswordBox}" Margin="0,0,0,20" Grid.RowSpan="2"/>
         <!--#endregion-->
 
         <!--#region Кнопка входа-->
@@ -63,7 +65,7 @@
                 Grid.Row="12"
                 Content="Войти"
                 Style="{StaticResource PrimaryButton}"
-                Height="40"/>
+                Height="40" Margin="0,0,0,8" Grid.RowSpan="2"/>
         <!--#endregion-->
     </Grid>
 </Window>

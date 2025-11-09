@@ -5,11 +5,11 @@
         Title="Запчасть"
         WindowStartupLocation="CenterScreen"
         Width="550"
-        Height="380"
+        Height="416"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
-    <Grid Margin="30">
+    <Grid Margin="30,30,30,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>

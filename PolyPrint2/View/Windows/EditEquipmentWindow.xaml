@@ -5,12 +5,12 @@
         Title="Оборудование"
         WindowStartupLocation="CenterScreen"
         Width="600"
-        Height="550"
+        Height="580"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="30">
+        <Grid Margin="30" Height="519">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="16"/>
