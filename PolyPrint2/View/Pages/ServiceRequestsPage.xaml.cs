@@ -104,7 +104,7 @@ namespace PolyPrint2.View.Pages
         private void FilterNewButton_Click(object sender, RoutedEventArgs e)
         {
             List<ServiceRequestGridItem> filtered = allRequests.Where(r =>
-                r.Status != null && r.Status.ToLower() == "новая").ToList();
+                r.Status == null || string.IsNullOrWhiteSpace(r.Status)).ToList();
             RequestsGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }
@@ -120,7 +120,7 @@ namespace PolyPrint2.View.Pages
         private void FilterCompletedButton_Click(object sender, RoutedEventArgs e)
         {
             List<ServiceRequestGridItem> filtered = allRequests.Where(r =>
-                r.Status != null && (r.Status.ToLower() == "выполнена" || r.Status.ToLower() == "закрыта")).ToList();
+                r.Status != null && r.Status.ToLower() == "завершён").ToList();
             RequestsGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }

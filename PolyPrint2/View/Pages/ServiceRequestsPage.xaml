@@ -40,7 +40,7 @@
                     Width="130"
                     Margin="0,0,8,0"/>
             <Button x:Name="FilterCompletedButton"
-                    Content="✓ Выполнена"
+                    Content="✓ Завершён"
                     Style="{StaticResource SecondaryButton}"
                     Width="130"
                     Margin="0,0,8,0"/>
@@ -108,20 +108,17 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Status}" Value="Новая">
-                            <Setter Property="Background" Value="#E3F2FD"/>
+                        <DataTrigger Binding="{Binding Status}" Value="в работе">
+                            <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="В работе">
                             <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Ожидание запчастей">
-                            <Setter Property="Background" Value="#FFE0B2"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Выполнена">
+                        <DataTrigger Binding="{Binding Status}" Value="завершён">
                             <Setter Property="Background" Value="#E8F5E9"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Закрыта">
-                            <Setter Property="Background" Value="#ECEFF1"/>
+                        <DataTrigger Binding="{Binding Status}" Value="Завершён">
+                            <Setter Property="Background" Value="#E8F5E9"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
