@@ -103,21 +103,24 @@ namespace PolyPrint2.View.Pages
 
         private void FilterNewButton_Click(object sender, RoutedEventArgs e)
         {
-            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "Новая").ToList();
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r =>
+                r.Status != null && r.Status.ToLower() == "новая").ToList();
             RequestsGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }
 
         private void FilterInProgressButton_Click(object sender, RoutedEventArgs e)
         {
-            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "В работе").ToList();
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r =>
+                r.Status != null && r.Status.ToLower() == "в работе").ToList();
             RequestsGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }
 
         private void FilterCompletedButton_Click(object sender, RoutedEventArgs e)
         {
-            List<ServiceRequestGridItem> filtered = allRequests.Where(r => r.Status == "Выполнена" || r.Status == "Закрыта").ToList();
+            List<ServiceRequestGridItem> filtered = allRequests.Where(r =>
+                r.Status != null && (r.Status.ToLower() == "выполнена" || r.Status.ToLower() == "закрыта")).ToList();
             RequestsGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }
