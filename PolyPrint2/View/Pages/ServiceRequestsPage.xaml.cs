@@ -1,6 +1,7 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
 using PolyPrint2.View.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -46,25 +47,33 @@ namespace PolyPrint2.View.Pages
 
         private void LoadData()
         {
-            List<Service_Requests> requests = App.context.Service_Requests.ToList();
-
-            if (AuthService.IsMaster(App.CurrentUser))
+            try
             {
-                requests = requests.Where(r => r.ID_Master == App.CurrentUser.ID_User).ToList();
+                List<Service_Requests> requests = App.context.Service_Requests.ToList();
+
+                if (AuthService.IsMaster(App.CurrentUser))
+                {
+                    requests = requests.Where(r => r.ID_Master == App.CurrentUser.ID_User).ToList();
+                }
+
+                allRequests = requests.Select(r => new ServiceRequestGridItem
+                {
+                    ID_Request = r.ID_Request,
+                    ClientName = r.Clients != null ? r.Clients.Organization_Name : "",
+                    EquipmentName = r.Equipment != null ? r.Equipment.Name : "",
+                    Created_Date = r.Created_Date,
+                    Problem_Description = r.Problem_Description,
+                    Status = r.Status,
+                    MasterName = r.Users != null ? r.Users.Login : ""
+                }).ToList();
+
+                RequestsGrid.ItemsSource = allRequests;
             }
-
-            allRequests = requests.Select(r => new ServiceRequestGridItem
+            catch (Exception ex)
             {
-                ID_Request = r.ID_Request,
-                ClientName = r.Clients != null ? r.Clients.Organization_Name : "",
-                EquipmentName = r.Equipment != null ? r.Equipment.Name : "",
-                Created_Date = r.Created_Date,
-                Problem_Description = r.Problem_Description,
-                Status = r.Status,
-                MasterName = r.Users != null ? r.Users.Login : ""
-            }).ToList();
-
-            RequestsGrid.ItemsSource = allRequests;
+                NotificationService.ShowError("Ошибка загрузки данных: " + ex.Message);
+                allRequests = new List<ServiceRequestGridItem>();
+            }
         }
 
         #endregion

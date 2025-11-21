@@ -1,6 +1,7 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
 using PolyPrint2.View.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -40,8 +41,16 @@ namespace PolyPrint2.View.Pages
 
         private void LoadData()
         {
-            allUsers = App.context.Users.ToList();
-            UsersGrid.ItemsSource = allUsers;
+            try
+            {
+                allUsers = App.context.Users.ToList();
+                UsersGrid.ItemsSource = allUsers;
+            }
+            catch (Exception ex)
+            {
+                NotificationService.ShowError("Ошибка загрузки данных: " + ex.Message);
+                allUsers = new List<Users>();
+            }
         }
 
         #endregion

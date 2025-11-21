@@ -1,4 +1,6 @@
+using PolyPrint2.AppData;
 using PolyPrint2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -21,10 +23,17 @@ namespace PolyPrint2.View.Pages
 
         private void LoadStatistics()
         {
-            LoadSummary();
-            LoadStatusStats();
-            LoadEquipmentStats();
-            LoadMasterStats();
+            try
+            {
+                LoadSummary();
+                LoadStatusStats();
+                LoadEquipmentStats();
+                LoadMasterStats();
+            }
+            catch (Exception ex)
+            {
+                NotificationService.ShowError("Ошибка загрузки статистики: " + ex.Message);
+            }
         }
 
         private void LoadSummary()

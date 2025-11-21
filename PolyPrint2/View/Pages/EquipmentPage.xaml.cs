@@ -1,6 +1,7 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
 using PolyPrint2.View.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -41,19 +42,27 @@ namespace PolyPrint2.View.Pages
 
         private void LoadData()
         {
-            List<Equipment> equipment = App.context.Equipment.ToList();
-            allEquipment = equipment.Select(e => new EquipmentGridItem
+            try
             {
-                ID_Equipment = e.ID_Equipment,
-                Name = e.Name,
-                Model = e.Model,
-                Serial_Number = e.Serial_Number,
-                ClientName = e.Clients != null ? e.Clients.Organization_Name : "",
-                Condition = e.Condition,
-                ID_Client = e.ID_Client
-            }).ToList();
+                List<Equipment> equipment = App.context.Equipment.ToList();
+                allEquipment = equipment.Select(e => new EquipmentGridItem
+                {
+                    ID_Equipment = e.ID_Equipment,
+                    Name = e.Name,
+                    Model = e.Model,
+                    Serial_Number = e.Serial_Number,
+                    ClientName = e.Clients != null ? e.Clients.Organization_Name : "",
+                    Condition = e.Condition,
+                    ID_Client = e.ID_Client
+                }).ToList();
 
-            EquipmentGrid.ItemsSource = allEquipment;
+                EquipmentGrid.ItemsSource = allEquipment;
+            }
+            catch (Exception ex)
+            {
+                NotificationService.ShowError("Ошибка загрузки данных: " + ex.Message);
+                allEquipment = new List<EquipmentGridItem>();
+            }
         }
 
         #endregion
