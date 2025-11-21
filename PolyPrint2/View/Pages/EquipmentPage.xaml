@@ -29,6 +29,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="SearchBox"
@@ -51,6 +53,12 @@
                     Grid.Column="6"
                     Content="🗑 Удалить"
                     Style="{StaticResource DangerButton}"
+                    Width="130"/>
+
+            <Button x:Name="ExportButton"
+                    Grid.Column="8"
+                    Content="📥 Экспорт"
+                    Style="{StaticResource SecondaryButton}"
                     Width="130"/>
         </Grid>
         <!--#endregion-->

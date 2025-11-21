@@ -80,7 +80,12 @@
                         Margin="15,0,15,12"/>
 
                 <Button x:Name="UsersButton"
-                        Content="Пользователи"
+                        Content="👥 Пользователи"
+                        Style="{StaticResource SecondaryButton}"
+                        Margin="15,0,15,12"/>
+
+                <Button x:Name="ProfileButton"
+                        Content="👤 Мой профиль"
                         Style="{StaticResource SecondaryButton}"
                         Margin="15,0,15,12"/>
             </StackPanel>

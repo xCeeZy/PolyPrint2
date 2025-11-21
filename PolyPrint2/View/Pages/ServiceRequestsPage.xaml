@@ -59,6 +59,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="SearchBox"
@@ -87,7 +89,13 @@
                     Grid.Column="8"
                     Content="🗑 Удалить"
                     Style="{StaticResource DangerButton}"
-                    Width="130"/>
+                    Width="110"/>
+
+            <Button x:Name="ExportButton"
+                    Grid.Column="10"
+                    Content="📥"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="50"/>
         </Grid>
         <!--#endregion-->
 
@@ -97,6 +105,27 @@
                   Style="{StaticResource MainDataGrid}"
                   ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
                   CellStyle="{StaticResource DataGridCell}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="Новая">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="В работе">
+                            <Setter Property="Background" Value="#FFF8E1"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Ожидание запчастей">
+                            <Setter Property="Background" Value="#FFE0B2"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Выполнена">
+                            <Setter Property="Background" Value="#E8F5E9"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Закрыта">
+                            <Setter Property="Background" Value="#ECEFF1"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID_Request}" Width="60"/>
                 <DataGridTextColumn Header="Клиент" Binding="{Binding ClientName}" Width="200"/>

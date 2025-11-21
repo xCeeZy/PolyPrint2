@@ -32,6 +32,7 @@ namespace PolyPrint2.View.Pages
             EditButton.Click += EditButton_Click;
             DeleteButton.Click += DeleteButton_Click;
             ExportButton.Click += ExportButton_Click;
+            ClientsGrid.MouseDoubleClick += ClientsGrid_MouseDoubleClick;
         }
 
         #endregion
@@ -140,6 +141,15 @@ namespace PolyPrint2.View.Pages
             {
                 ExportService.ExportToCSV(dataToExport, "Клиенты.csv");
             }
+        }
+
+        #endregion
+
+        #region Двойной клик
+
+        private void ClientsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EditButton_Click(sender, e);
         }
 
         #endregion

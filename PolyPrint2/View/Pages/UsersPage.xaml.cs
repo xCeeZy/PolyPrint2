@@ -31,6 +31,7 @@ namespace PolyPrint2.View.Pages
             AddButton.Click += AddButton_Click;
             EditButton.Click += EditButton_Click;
             DeleteButton.Click += DeleteButton_Click;
+            UsersGrid.MouseDoubleClick += UsersGrid_MouseDoubleClick;
         }
 
         #endregion
@@ -130,6 +131,15 @@ namespace PolyPrint2.View.Pages
                 NotificationService.ShowSuccess("Пользователь успешно удалён");
                 LoadData();
             }
+        }
+
+        #endregion
+
+        #region Двойной клик
+
+        private void UsersGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EditButton_Click(sender, e);
         }
 
         #endregion

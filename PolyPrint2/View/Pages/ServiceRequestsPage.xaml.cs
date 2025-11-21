@@ -36,6 +36,8 @@ namespace PolyPrint2.View.Pages
             EditButton.Click += EditButton_Click;
             ViewWorksButton.Click += ViewWorksButton_Click;
             DeleteButton.Click += DeleteButton_Click;
+            ExportButton.Click += ExportButton_Click;
+            RequestsGrid.MouseDoubleClick += RequestsGrid_MouseDoubleClick;
         }
 
         #endregion
@@ -219,6 +221,28 @@ namespace PolyPrint2.View.Pages
                 NotificationService.ShowSuccess("Заявка успешно удалена");
                 LoadData();
             }
+        }
+
+        #endregion
+
+        #region Экспорт
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<ServiceRequestGridItem> dataToExport = RequestsGrid.ItemsSource as List<ServiceRequestGridItem>;
+            if (dataToExport != null)
+            {
+                ExportService.ExportToCSV(dataToExport, "Заявки.csv");
+            }
+        }
+
+        #endregion
+
+        #region Двойной клик
+
+        private void RequestsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EditButton_Click(sender, e);
         }
 
         #endregion

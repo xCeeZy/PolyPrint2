@@ -31,6 +31,8 @@ namespace PolyPrint2.View.Pages
             AddButton.Click += AddButton_Click;
             EditButton.Click += EditButton_Click;
             DeleteButton.Click += DeleteButton_Click;
+            ExportButton.Click += ExportButton_Click;
+            EquipmentGrid.MouseDoubleClick += EquipmentGrid_MouseDoubleClick;
         }
 
         #endregion
@@ -152,6 +154,28 @@ namespace PolyPrint2.View.Pages
                 NotificationService.ShowSuccess("Оборудование успешно удалено");
                 LoadData();
             }
+        }
+
+        #endregion
+
+        #region Экспорт
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<EquipmentGridItem> dataToExport = EquipmentGrid.ItemsSource as List<EquipmentGridItem>;
+            if (dataToExport != null)
+            {
+                ExportService.ExportToCSV(dataToExport, "Оборудование.csv");
+            }
+        }
+
+        #endregion
+
+        #region Двойной клик
+
+        private void EquipmentGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EditButton_Click(sender, e);
         }
 
         #endregion
