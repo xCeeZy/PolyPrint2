@@ -4,8 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Работы по заявке"
         WindowStartupLocation="CenterScreen"
-        Width="900"
-        Height="650"
+        Width="1000"
+        Height="700"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
@@ -16,6 +16,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -69,7 +71,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Дата" Binding="{Binding Work_Date, StringFormat=dd.MM.yyyy}" Width="100"/>
                     <DataGridTextColumn Header="Описание работы" Binding="{Binding Description}" Width="*"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:N2} руб.}" Width="120"/>
+                    <DataGridTextColumn Header="Стоимость работы" Binding="{Binding Cost, StringFormat={}{0:N2} руб.}" Width="130"/>
+                    <DataGridTextColumn Header="Запчасти" Binding="{Binding UsedPartsInfo}" Width="200"/>
+                    <DataGridTextColumn Header="Стоимость запчастей" Binding="{Binding PartsCost, StringFormat={}{0:N2} руб.}" Width="140"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -80,24 +84,45 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="4"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="4"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock x:Name="TotalText"
+            <TextBlock x:Name="WorksTotalText"
+                       Grid.Row="0"
                        Grid.Column="1"
-                       Text="Общая стоимость:"
+                       Text="Стоимость работ: 0,00 руб."
+                       Style="{StaticResource NormalText}"/>
+
+            <TextBlock x:Name="PartsTotalText"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Text="Стоимость запчастей: 0,00 руб."
+                       Style="{StaticResource NormalText}"/>
+
+            <TextBlock x:Name="GrandTotalText"
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       Text="Итого: 0,00 руб."
                        Style="{StaticResource NormalText}"
                        FontSize="16"
-                       FontWeight="SemiBold"/>
-
-            <Button x:Name="CloseButton"
-                    Grid.Column="3"
-                    Content="Закрыть"
-                    Style="{StaticResource PrimaryButton}"
-                    Width="120"
-                    Height="40"/>
+                       FontWeight="Bold"/>
         </Grid>
+        <!--#endregion-->
+
+        <!--#region Кнопка закрытия-->
+        <Button x:Name="CloseButton"
+                Grid.Row="8"
+                Content="Закрыть"
+                Style="{StaticResource PrimaryButton}"
+                Width="120"
+                Height="40"
+                HorizontalAlignment="Right"/>
         <!--#endregion-->
     </Grid>
 </Window>

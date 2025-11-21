@@ -130,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Pages\ProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -231,6 +235,9 @@
     </Compile>
     <Compile Include="View\Windows\EditPartWindow.xaml.cs">
       <DependentUpon>EditPartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

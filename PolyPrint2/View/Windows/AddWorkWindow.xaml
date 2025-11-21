@@ -4,8 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Добавить работу"
         WindowStartupLocation="CenterScreen"
-        Width="550"
-        Height="409"
+        Width="700"
+        Height="600"
         ResizeMode="NoResize"
         Background="{StaticResource WindowBrush}">
 
@@ -19,6 +19,12 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
@@ -36,7 +42,7 @@
                    Style="{StaticResource LabelText}"/>
         <TextBox x:Name="DescriptionBox"
                  Grid.Row="4"
-                 Height="100"
+                 Height="80"
                  TextWrapping="Wrap"
                  AcceptsReturn="True"
                  VerticalScrollBarVisibility="Auto"
@@ -53,8 +59,87 @@
                  Style="{StaticResource InputTextBox}"/>
         <!--#endregion-->
 
+        <!--#region Использованные запчасти-->
+        <TextBlock Grid.Row="10"
+                   Text="Использованные запчасти"
+                   Style="{StaticResource LabelText}"/>
+
+        <Grid Grid.Row="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox x:Name="PartsComboBox"
+                          Grid.Column="0"
+                          Height="32"
+                          DisplayMemberPath="Name"/>
+
+                <TextBox x:Name="PartQuantityBox"
+                         Grid.Column="2"
+                         Style="{StaticResource InputTextBox}"
+                         Text="1"/>
+
+                <Button x:Name="AddPartButton"
+                        Grid.Column="4"
+                        Content="Добавить"
+                        Style="{StaticResource PrimaryButton}"
+                        Width="100"
+                        Height="32"/>
+            </Grid>
+
+            <DataGrid x:Name="UsedPartsGrid"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      Style="{StaticResource MainDataGrid}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                      CellStyle="{StaticResource DataGridCell}"
+                      Height="120">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Запчасть" Binding="{Binding PartName}" Width="*"/>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="60"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2}}" Width="80"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding Total, StringFormat={}{0:N2}}" Width="80"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button x:Name="RemovePartButton"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Content="Удалить"
+                    Style="{StaticResource DangerButton}"
+                    Width="80"
+                    Height="32"
+                    VerticalAlignment="Top"/>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Итого запчасти-->
+        <TextBlock x:Name="PartsTotalText"
+                   Grid.Row="14"
+                   Text="Стоимость запчастей: 0,00 руб."
+                   Style="{StaticResource NormalText}"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Right"/>
+        <!--#endregion-->
+
         <!--#region Кнопки-->
-        <Grid Grid.Row="10">
+        <Grid Grid.Row="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>
