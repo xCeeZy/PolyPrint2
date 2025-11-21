@@ -88,6 +88,11 @@
                         Content="👤 Мой профиль"
                         Style="{StaticResource SecondaryButton}"
                         Margin="15,0,15,12"/>
+
+                <Button x:Name="SettingsButton"
+                        Content="⚙ Настройки"
+                        Style="{StaticResource SecondaryButton}"
+                        Margin="15,0,15,12"/>
             </StackPanel>
             <!--#endregion-->
 

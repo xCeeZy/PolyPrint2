@@ -65,6 +65,7 @@ namespace PolyPrint2.View.Windows
             StatisticsButton.Click += StatisticsButton_Click;
             UsersButton.Click += UsersButton_Click;
             ProfileButton.Click += ProfileButton_Click;
+            SettingsButton.Click += SettingsButton_Click;
             LogoutButton.Click += LogoutButton_Click;
         }
 
@@ -110,6 +111,11 @@ namespace PolyPrint2.View.Windows
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new ProfilePage());
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new SettingsPage());
         }
 
         #endregion
