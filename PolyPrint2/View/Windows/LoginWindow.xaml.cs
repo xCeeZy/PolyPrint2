@@ -1,5 +1,6 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
+using System;
 using System.Windows;
 
 namespace PolyPrint2.View.Windows
@@ -47,19 +48,26 @@ namespace PolyPrint2.View.Windows
                 return;
             }
 
-            Users user = AuthService.Authenticate(login, password);
-
-            if (user == null)
+            try
             {
-                NotificationService.ShowError("Неверный логин или пароль");
-                return;
+                Users user = AuthService.Authenticate(login, password);
+
+                if (user == null)
+                {
+                    NotificationService.ShowError("Неверный логин или пароль");
+                    return;
+                }
+
+                App.CurrentUser = user;
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
-
-            App.CurrentUser = user;
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            catch (Exception ex)
+            {
+                NotificationService.ShowError(ex.Message);
+            }
         }
 
         #endregion

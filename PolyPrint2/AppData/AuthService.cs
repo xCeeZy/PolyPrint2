@@ -1,4 +1,5 @@
 using PolyPrint2.Model;
+using System;
 using System.Linq;
 
 namespace PolyPrint2.AppData
@@ -14,8 +15,15 @@ namespace PolyPrint2.AppData
                 return null;
             }
 
-            Users user = App.context.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
-            return user;
+            try
+            {
+                Users user = App.context.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка подключения к базе данных. Проверьте:\n1. Запущен ли SQL Server\n2. Правильность строки подключения в App.config\n\nТехническая информация: " + ex.Message);
+            }
         }
 
         #endregion
