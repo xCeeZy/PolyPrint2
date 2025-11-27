@@ -1,5 +1,7 @@
 using PolyPrint2.AppData;
 using PolyPrint2.Model;
+using System;
+using System.Data.Entity.Validation;
 using System.Windows;
 
 namespace PolyPrint2.View.Windows
@@ -86,29 +88,49 @@ namespace PolyPrint2.View.Windows
                 return;
             }
 
-            if (isEditMode)
+            try
             {
-                currentClient.Organization_Name = organization;
-                currentClient.Contact_Name = contactName;
-                currentClient.Phone = phone;
-                currentClient.Email = email;
-                NotificationService.ShowSuccess("Клиент успешно обновлён");
-            }
-            else
-            {
-                Clients newClient = new Clients
+                if (isEditMode)
                 {
-                    Organization_Name = organization,
-                    Contact_Name = contactName,
-                    Phone = phone,
-                    Email = email
-                };
-                App.context.Clients.Add(newClient);
-                NotificationService.ShowSuccess("Клиент успешно добавлен");
-            }
+                    currentClient.Organization_Name = organization;
+                    currentClient.Contact_Name = contactName;
+                    currentClient.Phone = phone;
+                    currentClient.Email = email;
+                }
+                else
+                {
+                    Clients newClient = new Clients
+                    {
+                        Organization_Name = organization,
+                        Contact_Name = contactName,
+                        Phone = phone,
+                        Email = email
+                    };
+                    App.context.Clients.Add(newClient);
+                }
 
-            App.context.SaveChanges();
-            DialogResult = true;
+                App.context.SaveChanges();
+
+                if (isEditMode)
+                {
+                    NotificationService.ShowSuccess("Клиент успешно обновлён");
+                }
+                else
+                {
+                    NotificationService.ShowSuccess("Клиент успешно добавлен");
+                }
+
+                DialogResult = true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                string errorMessage = DbHelper.GetValidationErrorMessage(ex);
+                NotificationService.ShowError(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                NotificationService.ShowError("Ошибка сохранения: " + ex.Message);
+            }
         }
 
         #endregion

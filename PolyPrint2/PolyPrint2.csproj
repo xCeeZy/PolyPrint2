@@ -142,6 +142,7 @@
     <Compile Include="AppData\NotificationService.cs" />
     <Compile Include="AppData\ValidationService.cs" />
     <Compile Include="AppData\ExportService.cs" />
+    <Compile Include="AppData\DbHelper.cs" />
     <Compile Include="AppData\EquipmentGridItem.cs" />
     <Compile Include="AppData\OrderGridItem.cs" />
     <Compile Include="AppData\ServiceRequestGridItem.cs" />
