@@ -31,10 +31,8 @@ namespace PolyPrint2.View.Pages
         {
             SearchBox.TextChanged += SearchBox_TextChanged;
             FilterAllButton.Click += FilterAllButton_Click;
-            FilterNewButton.Click += FilterNewButton_Click;
-            FilterProcessingButton.Click += FilterProcessingButton_Click;
+            FilterInWorkButton.Click += FilterInWorkButton_Click;
             FilterCompletedButton.Click += FilterCompletedButton_Click;
-            FilterCancelledButton.Click += FilterCancelledButton_Click;
             AddButton.Click += AddButton_Click;
             EditButton.Click += EditButton_Click;
             ViewItemsButton.Click += ViewItemsButton_Click;
@@ -104,18 +102,10 @@ namespace PolyPrint2.View.Pages
             SearchBox.Text = "";
         }
 
-        private void FilterNewButton_Click(object sender, RoutedEventArgs e)
+        private void FilterInWorkButton_Click(object sender, RoutedEventArgs e)
         {
             List<OrderGridItem> filtered = allOrders.Where(o =>
-                o.Status != null && o.Status.ToLower() == "новый").ToList();
-            OrdersGrid.ItemsSource = filtered;
-            SearchBox.Text = "";
-        }
-
-        private void FilterProcessingButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<OrderGridItem> filtered = allOrders.Where(o =>
-                o.Status != null && o.Status.ToLower() == "в обработке").ToList();
+                o.Status != null && o.Status.ToLower() == "в работе").ToList();
             OrdersGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }
@@ -123,15 +113,7 @@ namespace PolyPrint2.View.Pages
         private void FilterCompletedButton_Click(object sender, RoutedEventArgs e)
         {
             List<OrderGridItem> filtered = allOrders.Where(o =>
-                o.Status != null && o.Status.ToLower() == "выполнен").ToList();
-            OrdersGrid.ItemsSource = filtered;
-            SearchBox.Text = "";
-        }
-
-        private void FilterCancelledButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<OrderGridItem> filtered = allOrders.Where(o =>
-                o.Status != null && o.Status.ToLower() == "отменён").ToList();
+                o.Status != null && o.Status.ToLower() == "завершён").ToList();
             OrdersGrid.ItemsSource = filtered;
             SearchBox.Text = "";
         }

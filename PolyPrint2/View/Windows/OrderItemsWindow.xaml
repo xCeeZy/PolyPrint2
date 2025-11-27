@@ -4,9 +4,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Позиции заказа"
         WindowStartupLocation="CenterScreen"
-        Width="850"
-        Height="600"
-        ResizeMode="NoResize"
+        Width="900"
+        Height="650"
+        ResizeMode="CanResize"
+        MinWidth="700"
+        MinHeight="500"
         Background="{StaticResource WindowBrush}">
 
     <Grid Margin="20">

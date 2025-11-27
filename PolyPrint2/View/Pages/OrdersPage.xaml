@@ -29,23 +29,13 @@
                     Style="{StaticResource SecondaryButton}"
                     Width="100"
                     Margin="0,0,8,0"/>
-            <Button x:Name="FilterNewButton"
-                    Content="🆕 Новые"
+            <Button x:Name="FilterInWorkButton"
+                    Content="⚙ В работе"
                     Style="{StaticResource SecondaryButton}"
-                    Width="110"
-                    Margin="0,0,8,0"/>
-            <Button x:Name="FilterProcessingButton"
-                    Content="⚙ В обработке"
-                    Style="{StaticResource SecondaryButton}"
-                    Width="150"
+                    Width="130"
                     Margin="0,0,8,0"/>
             <Button x:Name="FilterCompletedButton"
-                    Content="✓ Выполнен"
-                    Style="{StaticResource SecondaryButton}"
-                    Width="120"
-                    Margin="0,0,8,0"/>
-            <Button x:Name="FilterCancelledButton"
-                    Content="✖ Отменён"
+                    Content="✓ Завершён"
                     Style="{StaticResource SecondaryButton}"
                     Width="120"
                     Margin="0,0,8,0"/>
@@ -113,29 +103,17 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Status}" Value="Новый">
-                            <Setter Property="Background" Value="#E3F2FD"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="новый">
-                            <Setter Property="Background" Value="#E3F2FD"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="В обработке">
+                        <DataTrigger Binding="{Binding Status}" Value="в работе">
                             <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="в обработке">
+                        <DataTrigger Binding="{Binding Status}" Value="В работе">
                             <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Выполнен">
+                        <DataTrigger Binding="{Binding Status}" Value="завершён">
                             <Setter Property="Background" Value="#E8F5E9"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="выполнен">
+                        <DataTrigger Binding="{Binding Status}" Value="Завершён">
                             <Setter Property="Background" Value="#E8F5E9"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Отменён">
-                            <Setter Property="Background" Value="#FFEBEE"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="отменён">
-                            <Setter Property="Background" Value="#FFEBEE"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

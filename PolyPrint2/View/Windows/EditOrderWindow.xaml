@@ -4,29 +4,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Заказ"
         WindowStartupLocation="CenterScreen"
-        Width="500"
-        Height="380"
-        ResizeMode="NoResize"
+        Width="600"
+        Height="500"
+        ResizeMode="CanResize"
+        MinWidth="500"
+        MinHeight="450"
         Background="{StaticResource WindowBrush}">
 
-    <Grid Margin="30">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="8"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="8"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="8"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
         <!--#region Заголовок-->
         <TextBlock x:Name="TitleText"
@@ -85,6 +88,7 @@
                     Height="40"/>
         </Grid>
         <!--#endregion-->
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>
 <!--#endregion-->

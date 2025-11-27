@@ -45,7 +45,7 @@ namespace PolyPrint2.View.Windows
             List<Clients> clients = App.context.Clients.ToList();
             ClientComboBox.ItemsSource = clients;
 
-            StatusComboBox.ItemsSource = new List<string> { "Новый", "В обработке", "Выполнен", "Отменён" };
+            StatusComboBox.ItemsSource = new List<string> { "в работе", "завершён" };
 
             if (isEditMode)
             {
