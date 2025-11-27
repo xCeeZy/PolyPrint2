@@ -8,6 +8,7 @@ namespace PolyPrint2.AppData
         public string ClientName { get; set; }
         public DateTime Order_Date { get; set; }
         public string Status { get; set; }
+        public int ItemsCount { get; set; }
         public decimal Total { get; set; }
     }
 }

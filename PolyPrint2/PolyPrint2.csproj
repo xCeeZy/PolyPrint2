@@ -38,6 +38,7 @@
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -127,6 +128,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Windows\EditPartWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\EditOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Windows\OrderItemsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -236,6 +245,12 @@
     </Compile>
     <Compile Include="View\Windows\EditPartWindow.xaml.cs">
       <DependentUpon>EditPartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditOrderWindow.xaml.cs">
+      <DependentUpon>EditOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\OrderItemsWindow.xaml.cs">
+      <DependentUpon>OrderItemsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>

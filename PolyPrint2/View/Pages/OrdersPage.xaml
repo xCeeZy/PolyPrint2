@@ -8,6 +8,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -17,18 +21,132 @@
                    Style="{StaticResource HeaderText}"/>
         <!--#endregion-->
 
+        <!--#region Быстрые фильтры-->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
+            <Button x:Name="FilterAllButton"
+                    Content="Все"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="100"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterNewButton"
+                    Content="🆕 Новые"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="110"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterProcessingButton"
+                    Content="⚙ В обработке"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="150"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterCompletedButton"
+                    Content="✓ Выполнен"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="120"
+                    Margin="0,0,8,0"/>
+            <Button x:Name="FilterCancelledButton"
+                    Content="✖ Отменён"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="120"
+                    Margin="0,0,8,0"/>
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Панель управления-->
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchBox"
+                     Grid.Column="0"
+                     Style="{StaticResource InputTextBox}"/>
+
+            <Button x:Name="AddButton"
+                    Grid.Column="2"
+                    Content="➕ Добавить"
+                    Style="{StaticResource SuccessButton}"
+                    Width="130"/>
+
+            <Button x:Name="EditButton"
+                    Grid.Column="4"
+                    Content="✎ Редактировать"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="160"/>
+
+            <Button x:Name="ViewItemsButton"
+                    Grid.Column="6"
+                    Content="📦 Позиции"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="130"/>
+
+            <Button x:Name="DeleteButton"
+                    Grid.Column="8"
+                    Content="🗑 Удалить"
+                    Style="{StaticResource DangerButton}"
+                    Width="110"/>
+
+            <Button x:Name="ExportButton"
+                    Grid.Column="10"
+                    Content="📥"
+                    Style="{StaticResource SecondaryButton}"
+                    Width="50"/>
+        </Grid>
+        <!--#endregion-->
+
         <!--#region Таблица заказов-->
         <DataGrid x:Name="OrdersGrid"
-                  Grid.Row="2"
+                  Grid.Row="6"
                   Style="{StaticResource MainDataGrid}"
                   ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
                   CellStyle="{StaticResource DataGridCell}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="Новый">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="новый">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="В обработке">
+                            <Setter Property="Background" Value="#FFF8E1"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="в обработке">
+                            <Setter Property="Background" Value="#FFF8E1"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Выполнен">
+                            <Setter Property="Background" Value="#E8F5E9"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="выполнен">
+                            <Setter Property="Background" Value="#E8F5E9"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Отменён">
+                            <Setter Property="Background" Value="#FFEBEE"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="отменён">
+                            <Setter Property="Background" Value="#FFEBEE"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID_Order}" Width="60"/>
                 <DataGridTextColumn Header="Клиент" Binding="{Binding ClientName}" Width="*"/>
-                <DataGridTextColumn Header="Дата заказа" Binding="{Binding Order_Date, StringFormat=dd.MM.yyyy}" Width="150"/>
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="150"/>
-                <DataGridTextColumn Header="Сумма" Binding="{Binding Total, StringFormat={}{0:N2} руб.}" Width="150"/>
+                <DataGridTextColumn Header="Дата заказа" Binding="{Binding Order_Date, StringFormat=dd.MM.yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
+                <DataGridTextColumn Header="Позиций" Binding="{Binding ItemsCount}" Width="80"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding Total, StringFormat={}{0:N2} руб.}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--#endregion-->
