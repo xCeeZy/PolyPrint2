@@ -3,6 +3,7 @@ using PolyPrint2.Model;
 using PolyPrint2.View.Windows;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -125,17 +126,69 @@ namespace PolyPrint2.View.Pages
 
             Clients selectedClient = ClientsGrid.SelectedItem as Clients;
 
-            MessageBoxResult result = NotificationService.ShowConfirmation(
-                "Вы уверены, что хотите удалить клиента " + selectedClient.Organization_Name + "?",
-                "Подтверждение удаления"
-            );
+            int equipmentCount = App.context.Equipment.Count(eq => eq.ID_Client == selectedClient.ID_Client);
+            int requestsCount = App.context.Service_Requests.Count(r => r.Equipment.ID_Client == selectedClient.ID_Client);
+
+            string confirmMessage = "Вы уверены, что хотите удалить клиента " + selectedClient.Organization_Name + "?";
+
+            if (equipmentCount > 0 || requestsCount > 0)
+            {
+                confirmMessage += "\n\nВНИМАНИЕ: Будут также удалены связанные данные:";
+                if (equipmentCount > 0)
+                {
+                    confirmMessage += string.Format("\n• Оборудование: {0} шт.", equipmentCount);
+                }
+                if (requestsCount > 0)
+                {
+                    confirmMessage += string.Format("\n• Заявки: {0} шт.", requestsCount);
+                }
+            }
+
+            MessageBoxResult result = NotificationService.ShowConfirmation(confirmMessage, "Подтверждение удаления");
 
             if (result == MessageBoxResult.Yes)
             {
-                App.context.Clients.Remove(selectedClient);
-                App.context.SaveChanges();
-                NotificationService.ShowSuccess("Клиент успешно удалён");
-                LoadData();
+                try
+                {
+                    List<Equipment> clientEquipment = App.context.Equipment.Where(eq => eq.ID_Client == selectedClient.ID_Client).ToList();
+
+                    foreach (Equipment equipment in clientEquipment)
+                    {
+                        List<Service_Requests> equipmentRequests = App.context.Service_Requests.Where(r => r.ID_Equipment == equipment.ID_Equipment).ToList();
+
+                        foreach (Service_Requests request in equipmentRequests)
+                        {
+                            List<Works> requestWorks = App.context.Works.Where(w => w.ID_Request == request.ID_Request).ToList();
+
+                            foreach (Works work in requestWorks)
+                            {
+                                List<Used_Parts> usedParts = App.context.Used_Parts.Where(up => up.ID_Work == work.ID_Work).ToList();
+                                foreach (Used_Parts usedPart in usedParts)
+                                {
+                                    App.context.Used_Parts.Remove(usedPart);
+                                }
+                                App.context.Works.Remove(work);
+                            }
+
+                            App.context.Service_Requests.Remove(request);
+                        }
+
+                        App.context.Equipment.Remove(equipment);
+                    }
+
+                    App.context.Clients.Remove(selectedClient);
+                    App.context.SaveChanges();
+                    NotificationService.ShowSuccess("Клиент успешно удалён");
+                    LoadData();
+                }
+                catch (SqlException ex)
+                {
+                    NotificationService.ShowError("Ошибка удаления из БД: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    NotificationService.ShowError("Ошибка удаления: " + ex.Message);
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using PolyPrint2.Model;
 using PolyPrint2.View.Windows;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -221,17 +222,43 @@ namespace PolyPrint2.View.Pages
                 return;
             }
 
-            MessageBoxResult result = NotificationService.ShowConfirmation(
-                "Вы уверены, что хотите удалить заявку #" + request.ID_Request + "?",
-                "Подтверждение удаления"
-            );
+            List<Works> relatedWorks = App.context.Works.Where(w => w.ID_Request == request.ID_Request).ToList();
+            string confirmMessage = "Вы уверены, что хотите удалить заявку #" + request.ID_Request + "?";
+
+            if (relatedWorks.Count > 0)
+            {
+                confirmMessage += string.Format("\n\nВНИМАНИЕ: Будут также удалены связанные данные:\n• Работы: {0} шт.\n• Использованные запчасти", relatedWorks.Count);
+            }
+
+            MessageBoxResult result = NotificationService.ShowConfirmation(confirmMessage, "Подтверждение удаления");
 
             if (result == MessageBoxResult.Yes)
             {
-                App.context.Service_Requests.Remove(request);
-                App.context.SaveChanges();
-                NotificationService.ShowSuccess("Заявка успешно удалена");
-                LoadData();
+                try
+                {
+                    foreach (Works work in relatedWorks)
+                    {
+                        List<Used_Parts> usedParts = App.context.Used_Parts.Where(up => up.ID_Work == work.ID_Work).ToList();
+                        foreach (Used_Parts usedPart in usedParts)
+                        {
+                            App.context.Used_Parts.Remove(usedPart);
+                        }
+                        App.context.Works.Remove(work);
+                    }
+
+                    App.context.Service_Requests.Remove(request);
+                    App.context.SaveChanges();
+                    NotificationService.ShowSuccess("Заявка успешно удалена");
+                    LoadData();
+                }
+                catch (SqlException ex)
+                {
+                    NotificationService.ShowError("Ошибка удаления из БД: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    NotificationService.ShowError("Ошибка удаления: " + ex.Message);
+                }
             }
         }
 
