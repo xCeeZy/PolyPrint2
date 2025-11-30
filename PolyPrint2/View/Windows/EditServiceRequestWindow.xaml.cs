@@ -81,12 +81,24 @@ namespace PolyPrint2.View.Windows
             if (isEditMode)
             {
                 TitleText.Text = "Редактирование заявки";
-                ClientBox.SelectedValue = currentRequest.ID_Client;
-                ClientBox_SelectionChanged(null, null);
-                EquipmentBox.SelectedValue = currentRequest.ID_Equipment;
+
+                Clients client = App.context.Clients.Find(currentRequest.ID_Client);
+                ClientBox.SelectedItem = client;
+
+                if (currentRequest.ID_Equipment != null)
+                {
+                    Equipment equipment = App.context.Equipment.Find(currentRequest.ID_Equipment);
+                    EquipmentBox.SelectedItem = equipment;
+                }
+
                 ProblemBox.Text = currentRequest.Problem_Description;
                 StatusBox.SelectedItem = currentRequest.Status;
-                MasterBox.SelectedValue = currentRequest.ID_Master;
+
+                if (currentRequest.ID_Master != null)
+                {
+                    Users master = App.context.Users.Find(currentRequest.ID_Master);
+                    MasterBox.SelectedItem = master;
+                }
             }
             else
             {
@@ -100,7 +112,7 @@ namespace PolyPrint2.View.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientBox.SelectedValue == null)
+            if (ClientBox.SelectedItem == null)
             {
                 NotificationService.ShowWarning("Выберите клиента");
                 return;
@@ -113,10 +125,24 @@ namespace PolyPrint2.View.Windows
                 return;
             }
 
-            int clientId = (int)ClientBox.SelectedValue;
-            int? equipmentId = EquipmentBox.SelectedValue as int?;
+            Clients selectedClient = ClientBox.SelectedItem as Clients;
+            int clientId = selectedClient.ID_Client;
+
+            int? equipmentId = null;
+            if (EquipmentBox.SelectedItem != null)
+            {
+                Equipment selectedEquipment = EquipmentBox.SelectedItem as Equipment;
+                equipmentId = selectedEquipment.ID_Equipment;
+            }
+
             string status = StatusBox.SelectedItem as string;
-            int? masterId = MasterBox.SelectedValue as int?;
+
+            int? masterId = null;
+            if (MasterBox.SelectedItem != null)
+            {
+                Users selectedMaster = MasterBox.SelectedItem as Users;
+                masterId = selectedMaster.ID_User;
+            }
 
             if (isEditMode)
             {
