@@ -62,7 +62,13 @@ namespace PolyPrint2.View.Windows
                 NameBox.Text = currentEquipment.Name;
                 ModelBox.Text = currentEquipment.Model;
                 SerialNumberBox.Text = currentEquipment.Serial_Number;
-                ClientBox.SelectedValue = currentEquipment.ID_Client;
+
+                if (currentEquipment.ID_Client != null)
+                {
+                    Clients client = App.context.Clients.Find(currentEquipment.ID_Client);
+                    ClientBox.SelectedItem = client;
+                }
+
                 ConditionBox.SelectedItem = currentEquipment.Condition;
             }
             else
@@ -80,7 +86,14 @@ namespace PolyPrint2.View.Windows
             string name = NameBox.Text.Trim();
             string model = ModelBox.Text.Trim();
             string serialNumber = SerialNumberBox.Text.Trim();
-            int? clientId = ClientBox.SelectedValue as int?;
+
+            int? clientId = null;
+            if (ClientBox.SelectedItem != null)
+            {
+                Clients selectedClient = ClientBox.SelectedItem as Clients;
+                clientId = selectedClient.ID_Client;
+            }
+
             string condition = ConditionBox.SelectedItem as string;
 
             if (!ValidationService.IsNotEmpty(name))
