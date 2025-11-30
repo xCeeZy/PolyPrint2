@@ -39,15 +39,37 @@ namespace PolyPrint2.View.Windows
             List<Clients> clients = App.context.Clients.ToList();
             ClientBox.ItemsSource = clients;
 
-            List<string> conditions = new List<string>
+            List<string> existingConditions = App.context.Equipment
+                .Where(e => !string.IsNullOrEmpty(e.Condition))
+                .Select(e => e.Condition)
+                .Distinct()
+                .ToList();
+
+            List<string> standardConditions = new List<string>
             {
                 "Исправно",
                 "Требует обслуживания",
                 "Неисправно",
-                "На ремонте"
+                "На ремонте",
+                "в работе",
+                "продано"
             };
-            ConditionBox.ItemsSource = conditions;
-            ConditionBox.SelectedIndex = 0;
+
+            foreach (string standardCondition in standardConditions)
+            {
+                if (!existingConditions.Contains(standardCondition))
+                {
+                    existingConditions.Add(standardCondition);
+                }
+            }
+
+            existingConditions.Sort();
+            ConditionBox.ItemsSource = existingConditions;
+
+            if (existingConditions.Count > 0)
+            {
+                ConditionBox.SelectedIndex = 0;
+            }
         }
 
         #endregion
