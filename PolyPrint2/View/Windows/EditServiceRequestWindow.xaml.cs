@@ -45,7 +45,6 @@ namespace PolyPrint2.View.Windows
             {
                 "Новая",
                 "В работе",
-                "Ожидание запчастей",
                 "Выполнена",
                 "Закрыта"
             };
@@ -62,11 +61,14 @@ namespace PolyPrint2.View.Windows
 
         private void ClientBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (ClientBox.SelectedValue != null)
+            if (ClientBox.SelectedItem != null)
             {
-                int clientId = (int)ClientBox.SelectedValue;
-                List<Equipment> equipment = App.context.Equipment.Where(eq => eq.ID_Client == clientId).ToList();
-                EquipmentBox.ItemsSource = equipment;
+                Clients selectedClient = ClientBox.SelectedItem as Clients;
+                if (selectedClient != null)
+                {
+                    List<Equipment> equipment = App.context.Equipment.Where(eq => eq.ID_Client == selectedClient.ID_Client).ToList();
+                    EquipmentBox.ItemsSource = equipment;
+                }
             }
         }
 
