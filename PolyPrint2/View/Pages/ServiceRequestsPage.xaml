@@ -108,17 +108,29 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="новая">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Новая">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="в работе">
                             <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="В работе">
                             <Setter Property="Background" Value="#FFF8E1"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="завершён">
+                        <DataTrigger Binding="{Binding Status}" Value="выполнена">
                             <Setter Property="Background" Value="#E8F5E9"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Status}" Value="Завершён">
+                        <DataTrigger Binding="{Binding Status}" Value="Выполнена">
                             <Setter Property="Background" Value="#E8F5E9"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="закрыта">
+                            <Setter Property="Background" Value="#F5F5F5"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Закрыта">
+                            <Setter Property="Background" Value="#F5F5F5"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
